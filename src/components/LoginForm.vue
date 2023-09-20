@@ -29,22 +29,27 @@
       />
       <ErrorMessage class="text-red-600" name="password" />
     </div>
-    <button
-      type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+
+    <ButtonEl
+      :type="'submit'"
+      :text="'Submit'"
       :disabled="login_in_submission"
-    >
-      Submit
-    </button>
+      :bgClr="'bg-purple-600'"
+      :txtClr="'text-white'"
+      :hvrBg="'hover:bg-purple-700'"
+      :hvrTxt="'hover:text-white'"
+    />
   </vee-form>
 </template>
 
 <script>
 import { mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
+import ButtonEl from '../ui/ButtonEl.vue'
 
 export default {
   name: 'LoginForm',
+  components: { ButtonEl },
   data() {
     return {
       loginSchema: {

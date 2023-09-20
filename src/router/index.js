@@ -16,12 +16,12 @@ const routes = [
     component: AboutView
   },
   {
-    name: 'manage',
-    path: '/manage',
-    component: ManageView,
+    name: 'authenticated',
+    path: '/authenticated',
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [{ name: 'manage', path: 'manage', component: ManageView }]
   },
   {
     path: '/:catchAll(.*)*',
