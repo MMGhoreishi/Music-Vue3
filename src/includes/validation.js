@@ -25,6 +25,7 @@ export default {
 
     defineRule('required', required)
     defineRule('tos', required)
+    defineRule('songTitle', required)
     defineRule('min', min)
     defineRule('max', max)
     defineRule('alpha_spaces', alphaSpaces)
@@ -48,7 +49,8 @@ export default {
           excluded: `You are not allowed to use this value for the field ${ctx.field}.`,
           country_excluded: 'Due to restrictions, we do not accept users from this location.',
           passwords_mismatch: "The passwords don't match.",
-          tos: 'You must accept the Terms of Service.'
+          tos: 'You must accept the Terms of Service.',
+          songTitle: 'The field song title is required.'
         }
 
         const message = messages[ctx.rule.name]
