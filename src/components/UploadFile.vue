@@ -51,6 +51,12 @@ export default {
       uploads: []
     }
   },
+  props: {
+    addSong: {
+      type: Function,
+      required: true
+    }
+  },
   computed: {
     dragoverStyle() {
       return { 'bg-green-400 border-green-400 border-solid': this.is_dragover }
@@ -102,7 +108,10 @@ export default {
             }
 
             song.url = await task.snapshot.ref.getDownloadURL()
-            await songsCollection.add(song)
+            const songRef = await songsCollection.add(song)
+            const songSnapshot = await songRef.get()
+
+            this.addSong(songSnapshot)
 
             this.uploads[uploadIndex].variant = 'bg-green-400'
             this.uploads[uploadIndex].icon = 'fas fa-check'
