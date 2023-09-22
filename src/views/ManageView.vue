@@ -19,6 +19,7 @@
               :song="song"
               :updateSong="updateSong"
               :index="i"
+              :removeSong="removeSong"
             />
           </div>
         </div>
@@ -56,6 +57,9 @@ export default {
     updateSong(i, { modified_name, genre }) {
       this.songs[i].modified_name = modified_name
       this.songs[i].genre = genre
+    },
+    removeSong(i) {
+      this.songs.splice(i, 1)
     }
   }
 }
