@@ -20,9 +20,11 @@
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
-            <div class="modal-close cursor-pointer z-50" @click="modalVisibility = false">
-              <i class="fas fa-times"></i>
-            </div>
+            <div
+              class="modal-close cursor-pointer z-50"
+              @click="modalVisibility = false"
+              v-icon="'times'"
+            ></div>
           </div>
 
           <!-- Tabs -->

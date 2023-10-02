@@ -5,15 +5,13 @@
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
         @click.prevent="deleteSong"
-      >
-        <i class="fa fa-times"></i>
-      </button>
+        v-icon.white="'times'"
+      ></button>
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
         @click.prevent="showForm = !showForm"
-      >
-        <i class="fa fa-pencil-alt"></i>
-      </button>
+        v-icon.white="'pencil-alt'"
+      ></button>
     </div>
     <div v-show="showForm">
       <div

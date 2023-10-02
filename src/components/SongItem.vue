@@ -24,7 +24,7 @@
         v-slot="{ navigate }"
       >
         <span class="comments" @click="navigate">
-          <i class="fa fa-comments text-gray-600"></i>
+          <i v-icon.gray="'comments'"></i>
           {{ song.comment_count }}
         </span>
       </router-link>

@@ -9,10 +9,8 @@
     <div class="flex flex-nowrap gap-4 items-center">
       <!-- Play/Pause Button -->
       <button type="button" @click.prevent="toggleAudio">
-        <i
-          class="fa text-gray-500 text-xl"
-          :class="{ 'fa-play': !playing, 'fa-pause': playing }"
-        ></i>
+        <i v-show="!playing" v-icon.gray="'play'"></i>
+        <i v-show="playing" v-icon.gray="'pause'"></i>
       </button>
       <!-- Current Position -->
       <div class="player-currenttime">{{ seek }}</div>
@@ -25,8 +23,8 @@
         <span
           class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
           :style="{ left: playerProgress }"
+          v-icon.gray="'circle'"
         >
-          <i class="fas fa-circle"></i>
         </span>
         <!-- Player Progress Bar-->
         <span
