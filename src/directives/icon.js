@@ -2,9 +2,11 @@ export default {
   beforeMount(el, binding) {
     let iconClass = `fa fa-${binding.value}`
 
-    const { twoXl, right, white, yellow, green, gray } = binding.modifiers
+    const { twoXl, lg, right, white, yellow, green, gray } = binding.modifiers
 
     if (twoXl) iconClass += ' text-2xl'
+
+    if (lg) iconClass += ' text-lg'
     else iconClass += ' text-xl'
 
     if (right) iconClass += ' float-right'

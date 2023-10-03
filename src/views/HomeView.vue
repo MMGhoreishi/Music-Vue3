@@ -1,5 +1,8 @@
 <template>
   <main>
+    <!-- Add To Homescreen Button -->
+    <add-to-home-btn />
+
     <!-- Introduction -->
     <section class="mb-8 py-20 text-white text-center relative">
       <div
@@ -46,10 +49,11 @@
 <script>
 import { songsCollection } from '@/includes/firebase'
 import SongItem from '@/components/SongItem.vue'
+import AddToHomeBtn from '@/components/AddToHomeBtn.vue'
 
 export default {
   name: 'HomeView',
-  components: { SongItem },
+  components: { SongItem, AddToHomeBtn },
   data() {
     return {
       songs: [],
