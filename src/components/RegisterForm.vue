@@ -105,7 +105,7 @@
       <ErrorMessage class="text-red-600 block" name="tos" />
     </div>
 
-    <ButtonEl
+    <button-el
       :type="`submit`"
       :text="`Submit`"
       :disabled="reg_in_submission"
@@ -120,11 +120,9 @@
 <script>
 import { mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
-import ButtonEl from '../ui/ButtonEl.vue'
 
 export default {
   name: 'RegisterForm',
-  components: { ButtonEl },
   data() {
     return {
       schema: {
