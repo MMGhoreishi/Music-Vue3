@@ -1,7 +1,7 @@
 <template>
   <!-- Player -->
   <div
-    class="fixed bottom-0 left-0 bg-white dark:bg-gray-700 px-4 py-2 w-full border-t border-solid border-white"
+    class="fixed bottom-0 left-0 bg-white dark:bg-gray-900 px-4 py-2 w-full border-t border-solid border-white"
   >
     <!-- Track Info -->
     <div class="text-center" v-if="current_song.modified_name">

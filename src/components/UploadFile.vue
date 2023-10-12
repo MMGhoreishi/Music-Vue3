@@ -125,7 +125,9 @@ export default {
               original_name: task.snapshot.ref.name,
               modified_name: task.snapshot.ref.name,
               genre: '',
-              comment_count: 0
+              comment_count: 0,
+              likes: 0,
+              cover: ''
             }
 
             song.url = await task.snapshot.ref.getDownloadURL()

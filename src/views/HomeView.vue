@@ -4,7 +4,6 @@
     <add-to-home-btn />
 
     <!-- Introduction -->
-    <!-- mb-8 -->
     <section class="py-20 text-white text-center relative">
       <div
         class="absolute inset-0 w-full h-full bg-contain introduction-bg"
@@ -30,17 +29,20 @@
     <!-- Main Content -->
     <section class="container mx-auto">
       <div
-        class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
+        class="bg-white dark:bg-gray-900 dark:text-white rounded border border-gray-200 relative flex flex-col"
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <icon-el icon="headphones-alt" :right="true" clr="yellow-400" size="2xl" />
           <span class="card-title">Songs</span>
           <!-- Icon -->
         </div>
+
         <!-- Playlist -->
-        <ol id="playlist">
+        <div
+          class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10 px-5"
+        >
           <song-item v-for="song in songs" :key="song.docID" :song="song" />
-        </ol>
+        </div>
         <!-- .. end Playlist -->
       </div>
     </section>
