@@ -5,13 +5,15 @@
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
         @click.prevent="deleteSong"
-        v-icon.white="'times'"
-      ></button>
+      >
+        <icon-el icon="times" clr="white" size="xl" />
+      </button>
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
         @click.prevent="showForm = !showForm"
-        v-icon.white="'pencil-alt'"
-      ></button>
+      >
+        <icon-el icon="pencil-alt" clr="white" size="xl" />
+      </button>
     </div>
     <div v-show="showForm">
       <div
@@ -27,7 +29,7 @@
           <vee-field
             type="text"
             name="modified_name"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Song Title"
             @input="updateUnsavedFlag(true)"
           />
@@ -38,7 +40,7 @@
           <vee-field
             type="text"
             name="genre"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Genre"
             @input="updateUnsavedFlag(true)"
           />
@@ -46,7 +48,7 @@
         </div>
         <button
           type="submit"
-          class="py-1.5 px-3 rounded text-white bg-green-600"
+          class="py-1.5 px-3 rounded text-white bg-violet-500 hover:bg-violet-600"
           :disabled="in_submission"
         >
           Submit

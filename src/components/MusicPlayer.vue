@@ -1,6 +1,8 @@
 <template>
   <!-- Player -->
-  <div class="fixed bottom-0 left-0 bg-white px-4 py-2 w-full">
+  <div
+    class="fixed bottom-0 left-0 bg-white dark:bg-gray-700 px-4 py-2 w-full border-t border-solid border-white"
+  >
     <!-- Track Info -->
     <div class="text-center" v-if="current_song.modified_name">
       <span class="song-title font-bold">{{ current_song.modified_name }}</span> by
@@ -9,11 +11,10 @@
     <div class="flex flex-nowrap gap-4 items-center">
       <!-- Play/Pause Button -->
       <button type="button" @click.prevent="toggleAudio">
-        <i v-show="!playing" v-icon.gray="'play'"></i>
-        <i v-show="playing" v-icon.gray="'pause'"></i>
+        <icon-el :icon="!playing ? 'play' : 'pause'" clr="gray-600" clrDark="white" size="xl" />
       </button>
       <!-- Current Position -->
-      <div class="player-currenttime">{{ seek }}</div>
+      <div class="player-currenttime dark:text-white">{{ seek }}</div>
       <!-- Scrub Container  -->
       <div
         @click.prevent="updateSeek"
@@ -23,8 +24,8 @@
         <span
           class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
           :style="{ left: playerProgress }"
-          v-icon.gray="'circle'"
         >
+          <icon-el icon="circle" clr="gray-600" size="xl" />
         </span>
         <!-- Player Progress Bar-->
         <span
@@ -33,7 +34,7 @@
         ></span>
       </div>
       <!-- Duration -->
-      <div class="player-duration">{{ duration }}</div>
+      <div class="player-duration dark:text-white">{{ duration }}</div>
     </div>
   </div>
 </template>

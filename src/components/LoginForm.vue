@@ -13,10 +13,10 @@
       <vee-field
         name="email"
         type="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
-      <ErrorMessage class="text-red-600" name="email" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="email" />
     </div>
     <!-- Password -->
     <div class="mb-3">
@@ -24,20 +24,20 @@
       <vee-field
         name="password"
         type="password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Password"
       />
-      <ErrorMessage class="text-red-600" name="password" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="password" />
     </div>
 
     <button-el
-      :type="'submit'"
-      :text="'Submit'"
+      type="submit"
+      text="Submit"
       :disabled="login_in_submission"
-      :bgClr="'bg-purple-600'"
-      :txtClr="'text-white'"
-      :hvrBg="'hover:bg-purple-700'"
-      :hvrTxt="'hover:text-white'"
+      :bgClr="'violet-500'"
+      txtClr="white"
+      :hvrBg="'violet-600'"
+      hvrTxt="white"
     />
   </vee-form>
 </template>

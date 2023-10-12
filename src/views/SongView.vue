@@ -12,8 +12,9 @@
           @click.prevent="newSong(song)"
           type="button"
           class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
-          v-icon.gray.twoXl="'play'"
-        ></button>
+        >
+          <icon-el icon="play" clr="gray-600" size="2xl" />
+        </button>
         <div class="z-50 text-left ml-8">
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modified_name }}</div>
@@ -23,11 +24,13 @@
     </section>
     <!-- Form -->
     <section class="container mx-auto mt-6" id="comments">
-      <div class="bg-white rounded border border-gray-200 relative flex flex-col">
+      <div
+        class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
+      >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
           <span class="card-title">Comments ( {{ song.comment_count }} )</span>
-          <i v-icon.right.green="'comments'"></i>
+          <icon-el icon="comments" :right="true" clr="green-400" size="xl" />
         </div>
         <div class="p-6">
           <div
@@ -41,13 +44,13 @@
             <vee-field
               as="textarea"
               name="comment"
-              class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
+              class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
               placeholder="Your comment here..."
             ></vee-field>
-            <ErrorMessage class="text-red-600" name="comment" />
+            <ErrorMessage class="text-red-600 dark:text-red-300" name="comment" />
             <button
               type="submit"
-              class="py-1.5 px-3 rounded text-white bg-green-600 block"
+              class="py-1.5 px-3 rounded text-white bg-violet-500 hover:bg-violet-600 block"
               :disabled="comment_in_submission"
             >
               Submit
@@ -59,7 +62,7 @@
           <!-- Sort Comments -->
           <select
             v-model="sort"
-            class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="dark:bg-gray-500 dark:text-white block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           >
             <option value="1">Latest</option>
             <option value="2">Oldest</option>
@@ -70,7 +73,7 @@
     <!-- Comments -->
     <ul class="container mx-auto">
       <li
-        class="p-6 bg-gray-50 border border-gray-200"
+        class="p-6 text-white bg-white dark:bg-gray-600 border border-gray-200"
         v-for="comment in sortedComments"
         :key="comment.docID"
       >

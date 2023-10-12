@@ -19,19 +19,43 @@ export default {
       },
       default: 'button'
     },
-    text: String,
+    text: {
+      type: String,
+      required: true
+    },
     disabled: {
       type: Boolean,
       default: true
     },
-    bgClr: String,
-    txtClr: String,
-    hvrBg: String,
-    hvrTxt: String
+    bgClr: {
+      type: String,
+      required: true
+    },
+    bgClrDark: {
+      type: String
+    },
+    txtClr: {
+      type: String,
+      required: true
+    },
+    hvrBg: {
+      type: String,
+      required: true
+    },
+    hvrTxt: {
+      type: String,
+      required: true
+    }
   },
   computed: {
     bindClasses() {
-      return [this.bgClr, this.txtClr, this.hvrBg, this.hvrTxt]
+      return [
+        this.bgClr ? 'bg-' + this.bgClr : null,
+        this.bgClrDark ? 'dark:bg-' + this.bgClrDark : null,
+        this.txtClr ? 'text-' + this.txtClr : null,
+        this.hvrBg ? 'hover:bg-' + this.hvrBg : null,
+        this.hvrTxt ? 'hover:text-' + this.hvrTxt : null
+      ]
     }
   }
 }

@@ -1,15 +1,17 @@
 <template>
-  <app-header />
+  <div class="">
+    <app-header />
 
-  <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component"></component>
-    </transition>
-  </router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
 
-  <music-player />
+    <music-player />
 
-  <app-auth />
+    <app-auth />
+  </div>
 </template>
 
 <script>

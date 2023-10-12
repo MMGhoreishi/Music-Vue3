@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-white rounded border border-gray-200 relative flex flex-col">
+  <div
+    class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
+  >
     <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-      <i v-icon.right.green.twoXl="'upload'"></i>
+      <icon-el icon="upload" :right="true" clr="green-400" size="2xl" />
       <span class="card-title">Upload</span>
     </div>
     <div class="p-6">
@@ -25,7 +27,7 @@
       <div class="mb-4" v-for="upload in uploads" :key="upload.name">
         <!-- File Name -->
         <div class="font-bold text-sm" :class="upload.text_class">
-          <i v-upload-icon="upload.icon"></i>
+          <icon-el :icon="upload.icon" size="xl" />
           {{ upload.name }}
         </div>
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
@@ -43,7 +45,6 @@
 
 <script>
 import { storage, auth, songsCollection } from '@/includes/firebase'
-import UploadIcon from '@/directives/upload-Icon'
 
 export default {
   name: 'UploadFile',
@@ -52,9 +53,6 @@ export default {
       is_dragover: false,
       uploads: []
     }
-  },
-  directives: {
-    'upload-icon': UploadIcon
   },
   props: {
     addSong: {

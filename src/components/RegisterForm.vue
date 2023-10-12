@@ -13,10 +13,10 @@
       <vee-field
         type="text"
         name="name"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Name"
       />
-      <ErrorMessage class="text-red-600" name="name" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="name" />
     </div>
     <!-- Email -->
     <div class="mb-3">
@@ -24,10 +24,10 @@
       <vee-field
         type="email"
         name="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
-      <ErrorMessage class="text-red-600" name="email" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="email" />
     </div>
     <!-- Age -->
     <div class="mb-3">
@@ -35,21 +35,21 @@
       <vee-field
         type="number"
         name="age"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       />
-      <ErrorMessage class="text-red-600" name="age" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="age" />
     </div>
     <!-- Password -->
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
       <vee-field name="password" :bails="false" v-slot="{ field, errors }">
         <input
-          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           type="password"
           placeholder="Password"
           v-bind="field"
         />
-        <div class="text-red-600" v-for="error in errors" :key="error">
+        <div class="text-red-600 dark:text-red-300" v-for="error in errors" :key="error">
           {{ error }}
         </div>
       </vee-field>
@@ -60,10 +60,10 @@
       <vee-field
         type="password"
         name="confirm_password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Confirm Password"
       />
-      <ErrorMessage class="text-red-600" name="confirm_password" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="confirm_password" />
     </div>
     <!-- Country -->
     <div class="mb-3">
@@ -71,14 +71,14 @@
       <vee-field
         as="select"
         name="country"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
         <option value="Germany">Germany</option>
         <option value="Antarctica">Antarctica</option>
       </vee-field>
-      <ErrorMessage class="text-red-600" name="country" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="country" />
     </div>
     <!-- Role -->
     <div class="mb-3">
@@ -86,12 +86,12 @@
       <vee-field
         as="select"
         name="role"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
         <option value="Artist">Artist</option>
         <option value="Listener">Listener</option>
       </vee-field>
-      <ErrorMessage class="text-red-600" name="role" />
+      <ErrorMessage class="text-red-600 dark:text-red-300" name="role" />
     </div>
     <!-- TOS -->
     <div class="mb-3 pl-6">
@@ -99,20 +99,19 @@
         type="checkbox"
         name="tos"
         value="1"
-        class="w-4 h-4 float-left -ml-6 mt-1 rounded inline-block"
+        class="dark:bg-gray-500 dark:text-white w-4 h-4 float-left -ml-6 mt-1 rounded inline-block"
       />
       <label class="inline-block">Accept terms of service</label>
-      <ErrorMessage class="text-red-600 block" name="tos" />
+      <ErrorMessage class="text-red-600 dark:text-red-300 block" name="tos" />
     </div>
-
     <button-el
-      :type="`submit`"
-      :text="`Submit`"
+      type="submit"
+      text="Submit"
       :disabled="reg_in_submission"
-      :bgClr="`bg-purple-600`"
-      :txtClr="`text-white`"
-      :hvrBg="`hover:bg-purple-700`"
-      :hvrTxt="`hover:text-white`"
+      :bgClr="'violet-500'"
+      txtClr="white"
+      :hvrBg="'violet-600'"
+      hvrTxt="white"
     />
   </vee-form>
 </template>

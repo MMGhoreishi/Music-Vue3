@@ -12,7 +12,7 @@
       type="button"
       @click="install"
     >
-      <i v-icon.lg="'mobile-alt'"></i>
+      <icon-el icon="mobile-alt" size="lg" />
       <span class="ml-2">install</span>
     </button>
     <button
@@ -20,7 +20,7 @@
       type="button"
       @click="dismiss"
     >
-      <i v-icon.lg="'eraser'"></i>
+      <icon-el icon="eraser" size="lg" />
       <span class="ml-2">Dismiss</span>
     </button>
   </div>

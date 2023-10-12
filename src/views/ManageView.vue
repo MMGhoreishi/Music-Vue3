@@ -6,11 +6,11 @@
         <upload-file :addSong="addSong" />
       </div>
       <div class="col-span-2">
-        <div class="bg-white rounded border border-gray-200 relative flex flex-col">
-          <div
-            class="px-6 pt-6 pb-5 font-bold border-b border-gray-200"
-            v-icon.right.green="'compact-disc'"
-          >
+        <div
+          class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
+        >
+          <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
+            <icon-el icon="compact-disc" :right="true" clr="green-400" size="xl" />
             <span class="card-title">My Songs</span>
           </div>
           <div class="p-6">
