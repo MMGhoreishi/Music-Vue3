@@ -7,7 +7,7 @@
         <div class="w-full h-44 relative rounded object-cover mb-3">
           <div
             class="absolute inset-0 bg-cover bg-center z-0"
-            style="background-image: url('https://flowbite.com/docs/images/blog/image-1.jpg')"
+            :style="{ backgroundImage: 'url(' + song.coverUrl + ')' }"
           ></div>
 
           <div class="relative h-44 flex items-end justify-end p-1 text-black">
@@ -36,19 +36,7 @@
         <p class="mb-10 font-normal">{{ song.display_name }}</p>
         <div class="absolute bottom-0 w-full px-10 pb-3">
           <div class="grid grid-cols-2">
-            <div>
-              <span class="comments" @click="navigate">
-                <icon-el
-                  icon="heart"
-                  :clr="likeStyle(song.docID)"
-                  :clrDark="likeStyleDark(song.docID)"
-                  size="xl"
-                  @click="addLike(song.docID, song.likes)"
-                />
-
-                <span class="dark:text-white ml-2">{{ showLikes(song.docID) || song.likes }}</span>
-              </span>
-            </div>
+            <song-like :song="song" iconSize="xl" />
             <div>
               <router-link
                 custom
@@ -73,52 +61,15 @@
 </template>
 
 <script>
-import { songsCollection } from '@/includes/firebase'
+import SongLike from '@/components/SongLike.vue'
 
 export default {
   name: 'SongItem',
+  components: { SongLike },
   props: {
     song: {
       type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      likes: []
-    }
-  },
-  methods: {
-    likeStyle(songId) {
-      return this.likes.find((element) => element.songId === songId) ? 'red-400' : 'gray-600'
-    },
-    likeStyleDark(songId) {
-      return !this.likes.find((element) => element.songId === songId) ? 'white' : null
-    },
-    showLikes(songId) {
-      return this.likes.find((element) => element.songId === songId)
-        ? this.likes.find((element) => element.songId === songId).songLikes
-        : null
-    },
-    async addLike(songId, songLikes) {
-      console.log('songLikes>>>>>')
-      console.log(songLikes)
-      this.likes.push({
-        songId: songId,
-        songLikes: songLikes + 1
-      })
-
-      try {
-        await songsCollection.doc(songId).update({
-          likes: songLikes + 1
-        })
-      } catch (error) {
-        this.likes.pop()
-
-        alert('An unexpected error occured. Please try again later.')
-
-        return
-      }
     }
   }
 }

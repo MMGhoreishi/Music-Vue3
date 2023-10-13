@@ -1,9 +1,10 @@
 <template>
   <button
     :type="type"
-    class="block w-full py-1.5 px-3 rounded transition"
+    class="block w-full py-1.5 px-3 transition"
     :class="bindClasses"
     :disabled="disabled"
+    @click="click"
   >
     {{ text }}
   </button>
@@ -45,6 +46,13 @@ export default {
     hvrTxt: {
       type: String,
       required: true
+    },
+    roundedFull: {
+      type: Boolean,
+      default: false
+    },
+    click: {
+      type: Function
     }
   },
   computed: {
@@ -54,7 +62,8 @@ export default {
         this.bgClrDark ? 'dark:bg-' + this.bgClrDark : null,
         this.txtClr ? 'text-' + this.txtClr : null,
         this.hvrBg ? 'hover:bg-' + this.hvrBg : null,
-        this.hvrTxt ? 'hover:text-' + this.hvrTxt : null
+        this.hvrTxt ? 'hover:text-' + this.hvrTxt : null,
+        this.roundedFull ? 'rounded-full' : 'rounded'
       ]
     }
   }

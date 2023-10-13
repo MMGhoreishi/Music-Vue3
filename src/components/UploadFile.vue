@@ -1,4 +1,6 @@
 <template>
+  <upload-cover v-show="this.showCoverModal" :songId="songId" />
+
   <div
     class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
   >
@@ -44,14 +46,18 @@
 </template>
 
 <script>
+import UploadCover from '@/components/UploadCover.vue'
 import { storage, auth, songsCollection } from '@/includes/firebase'
 
 export default {
   name: 'UploadFile',
+  components: { UploadCover },
   data() {
     return {
       is_dragover: false,
-      uploads: []
+      uploads: [],
+      showCoverModal: false,
+      songId: ''
     }
   },
   props: {
@@ -127,7 +133,7 @@ export default {
               genre: '',
               comment_count: 0,
               likes: 0,
-              cover: ''
+              likers: null
             }
 
             song.url = await task.snapshot.ref.getDownloadURL()
@@ -139,6 +145,9 @@ export default {
             this.uploads[uploadIndex].variant = 'bg-green-400'
             this.uploads[uploadIndex].icon = 'check'
             this.uploads[uploadIndex].text_class = 'text-green-400'
+
+            this.songId = songSnapshot.id
+            this.showCoverModal = true
           }
         )
       })

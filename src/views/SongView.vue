@@ -19,6 +19,10 @@
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modified_name }}</div>
           <div>{{ song.genre }}</div>
+
+          <div class="mt-3">
+            <song-like :song="song" iconSize="2xl" v-if="song.modified_name" />
+          </div>
         </div>
       </div>
     </section>
@@ -96,9 +100,11 @@ import { songsCollection, commentsCollection, auth } from '@/includes/firebase'
 import { mapState, mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 import usePlayerStore from '@/stores/player'
+import SongLike from '@/components/SongLike.vue'
 
 export default {
   name: 'SongView',
+  components: { SongLike },
   data() {
     return {
       song: {},
@@ -137,6 +143,7 @@ export default {
       vm.sort = sort === '1' || sort === '2' ? sort : '1'
 
       vm.song = docSnapshot.data()
+
       vm.getComments()
     })
   },
