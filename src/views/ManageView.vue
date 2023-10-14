@@ -6,6 +6,7 @@
         <upload-file :addSong="addSong" />
       </div>
       <div class="col-span-2">
+        <add-genre :updateUnsavedFlag="updateUnsavedFlagGenre" />
         <div
           class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
         >
@@ -22,7 +23,8 @@
               :updateSong="updateSong"
               :index="i"
               :removeSong="removeSong"
-              :updateUnsavedFlag="updateUnsavedFlag"
+              :updateUnsavedFlag="updateUnsavedFlagEdit"
+              :genres="genres"
             />
           </div>
         </div>
@@ -34,21 +36,26 @@
 <script>
 import UploadFile from '@/components/UploadFile.vue'
 import CompositionItem from '@/components/CompositionItem.vue'
-import { auth, songsCollection } from '@/includes/firebase'
+import AddGenre from '@/components/AddGenre.vue'
+import { auth, songsCollection, genresCollection } from '@/includes/firebase'
 
 export default {
   name: 'ManageView',
-  components: { UploadFile, CompositionItem },
+  components: { UploadFile, CompositionItem, AddGenre },
   data() {
     return {
       songs: [],
-      unsavedFlag: false
+      genres: [],
+      unsavedFlagEdit: false,
+      unsavedFlagGenre: false
     }
   },
   async created() {
-    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+    const snapshotSongs = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+    snapshotSongs.forEach(this.addSong)
 
-    snapshot.forEach(this.addSong)
+    const snapshotGenres = await genresCollection.where('uid', '==', auth.currentUser.uid).get()
+    snapshotGenres.forEach(this.addGenres)
   },
   methods: {
     updateSong(i, { modified_name, genre }) {
@@ -66,12 +73,23 @@ export default {
 
       this.songs.push(song)
     },
-    updateUnsavedFlag(value) {
-      this.unsavedFlag = value
+    addGenres(document) {
+      const genre = {
+        ...document.data(),
+        docID: document.id
+      }
+
+      this.genres.push(genre)
+    },
+    updateUnsavedFlagEdit(value) {
+      this.unsavedFlagEdit = value
+    },
+    updateUnsavedFlagGenre(value) {
+      this.unsavedFlagGenre = value
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (!this.unsavedFlag) next()
+    if (!this.unsavedFlagEdit && !this.unsavedFlagGenre) next()
     else {
       const leave = confirm('You have unsaved changes. Are you sure you want to leave?')
       next(leave)

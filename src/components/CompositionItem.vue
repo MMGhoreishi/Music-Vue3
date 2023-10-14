@@ -37,13 +37,19 @@
         </div>
         <div class="mb-3">
           <label class="inline-block mb-2">Genre</label>
+
           <vee-field
-            type="text"
+            as="select"
             name="genre"
             class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Genre"
             @input="updateUnsavedFlag(true)"
-          />
+          >
+            <option :value="song.genre" selected hidden>{{ song.genre }}</option>
+            <option v-for="genre in genres" :key="genre.docID" :value="genre.genre">
+              {{ genre.genre }}
+            </option>
+          </vee-field>
+
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
         <button
@@ -76,6 +82,10 @@ export default {
       type: Object,
       required: true
     },
+    genres: {
+      type: Array,
+      required: true
+    },
     updateSong: {
       type: Function,
       required: true
@@ -89,7 +99,8 @@ export default {
       required: true
     },
     updateUnsavedFlag: {
-      type: Function
+      type: Function,
+      required: true
     }
   },
   data() {
@@ -97,7 +108,7 @@ export default {
       showForm: false,
       schema: {
         modified_name: 'songTitle',
-        genre: 'alpha_spaces'
+        genre: 'required'
       },
       in_submission: false,
       show_alert: false,
