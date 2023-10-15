@@ -7,6 +7,7 @@ import VeeValidatePlugin from '@/includes/validation'
 import { auth } from '@/includes/firebase'
 import { registerSW } from 'virtual:pwa-register'
 import progressBar from '@/includes/progress-bar'
+import withUUID from 'vue-uuid'
 
 import './assets/base.css'
 import './assets/main.css'
@@ -20,7 +21,7 @@ let app
 
 auth.onAuthStateChanged(() => {
   if (!app) {
-    app = createApp(App)
+    app = withUUID(createApp(App))
 
     app.use(createPinia())
     app.use(router)

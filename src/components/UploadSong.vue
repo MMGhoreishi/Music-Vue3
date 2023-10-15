@@ -1,8 +1,6 @@
 <template>
-  <upload-cover v-show="this.showCoverModal" :songId="songId" />
-
   <div
-    class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
+    class="mb-2 bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
   >
     <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
       <icon-el icon="upload" :right="true" clr="green-400" size="2xl" />
@@ -23,7 +21,6 @@
       >
         <h5>Drop your files here</h5>
       </div>
-      <!-- <input type="file" multiple @change="upload($event)" /> -->
       <input type="file" @change="upload($event)" />
       <hr class="my-6" />
       <!-- Progess Bars -->
@@ -44,45 +41,94 @@
       </div>
     </div>
   </div>
+
+  <toast-el :toastText="toastText" :toastType="toastType" />
 </template>
 
 <script>
-import UploadCover from '@/components/UploadCover.vue'
 import { storage, auth, songsCollection } from '@/includes/firebase'
 
 export default {
-  name: 'UploadFile',
-  components: { UploadCover },
-  data() {
-    return {
-      is_dragover: false,
-      uploads: [],
-      showCoverModal: false,
-      songId: ''
-    }
-  },
+  name: 'UploadSong',
   props: {
     addSong: {
+      type: Function,
+      required: true
+    },
+    btnClicked: {
+      type: Boolean,
+      required: true
+    },
+    changeSongId: {
+      type: Function,
+      required: true
+    },
+    validationSong: {
+      type: Boolean,
+      required: true
+    },
+    changeValidationSong: {
+      type: Function,
+      required: true
+    },
+    validationCover: {
+      type: Boolean,
+      required: true
+    },
+    changeValidationCover: {
+      type: Function,
+      required: true
+    },
+    changeBtnClicked: {
       type: Function,
       required: true
     }
   },
   computed: {
     dragoverStyle() {
-      return { 'bg-green-400 border-green-400 border-solid': this.is_dragover }
+      return { 'bg-green-400 border-green-400 border-solid text-white': this.is_dragover }
+    }
+  },
+  data() {
+    return {
+      is_dragover: false,
+      uploads: [],
+      eventFile: null,
+      toastText: '',
+      toastType: 'error'
     }
   },
   methods: {
     upload($event) {
-      this.is_dragover = false
+      this.eventFile = $event.dataTransfer
+        ? [...$event.dataTransfer.files]
+        : [...$event.target.files]
+    },
+    upload2() {
+      this.uploads = []
 
-      const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]
+      if (!this.eventFile) {
+        this.changeValidationSong(true)
 
-      files.forEach((file) => {
-        if (file.type !== 'audio/mpeg') return
+        this.toastText = 'Please drag a song'
+        this.toastType = 'error'
 
-        console.log('>>>>>>my navigator.onLine')
-        console.log(navigator.onLine)
+        this.is_dragover = false
+
+        return
+      }
+
+      this.eventFile.forEach((file) => {
+        if (file.type !== 'audio/mpeg') {
+          this.changeValidationSong(true)
+
+          this.toastText = 'Please drag only mp3 file'
+          this.toastType = 'error'
+
+          this.is_dragover = false
+
+          return
+        }
 
         if (!navigator.onLine) {
           this.uploads.push({
@@ -116,6 +162,24 @@ export default {
         task.on(
           'state_changed',
           (snapshot) => {
+            console.log('state_changed-snapshot****')
+
+            if (this.validationCover) {
+              this.uploads[uploadIndex].task.cancel()
+
+              this.uploads[uploadIndex].variant = 'bg-red-400'
+              this.uploads[uploadIndex].icon = 'times'
+              this.uploads[uploadIndex].text_class = 'text-red-400'
+
+              this.is_dragover = false
+
+              this.changeBtnClicked(false)
+
+              this.changeValidationCover(false)
+
+              return
+            }
+
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             this.uploads[uploadIndex].current_progress = progress
           },
@@ -146,12 +210,23 @@ export default {
             this.uploads[uploadIndex].variant = 'bg-green-400'
             this.uploads[uploadIndex].icon = 'check'
             this.uploads[uploadIndex].text_class = 'text-green-400'
+            this.is_dragover = false
+            this.changeSongId(songSnapshot.id)
 
-            this.songId = songSnapshot.id
-            this.showCoverModal = true
+            console.log('my validation cover>>>>')
+            console.log(this.validationCover)
           }
         )
       })
+    }
+  },
+  watch: {
+    btnClicked(newVal) {
+      console.log('this.validationCover btnCliked in watch>>>')
+      console.log(this.validationCover)
+
+      if (newVal) this.upload2()
+      console.log('Hello World BTN!!!!', newVal)
     }
   },
   beforeUnmount() {

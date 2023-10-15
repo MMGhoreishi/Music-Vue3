@@ -29,7 +29,7 @@
               :to="{ name: 'song', params: { id: song.docID } }"
               class="font-bold block text-gray-600 dark:text-white"
             >
-              {{ song.modified_name }}
+              {{ song.modified_name.replace('.mp3', '') }}
             </router-link>
           </h5>
         </a>

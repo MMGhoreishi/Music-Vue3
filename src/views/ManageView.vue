@@ -3,10 +3,10 @@
   <section class="container mx-auto mt-6">
     <div class="md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
-        <upload-file :addSong="addSong" />
+        <upload-files :addSong="addSong" />
       </div>
       <div class="col-span-2">
-        <add-genre :updateUnsavedFlag="updateUnsavedFlagGenre" />
+        <add-genre :updateUnsavedFlag="updateUnsavedFlagGenre" :updateGenres="updateGenres" />
         <div
           class="bg-white dark:bg-gray-700 dark:text-white rounded border border-gray-200 relative flex flex-col"
         >
@@ -34,14 +34,14 @@
 </template>
 
 <script>
-import UploadFile from '@/components/UploadFile.vue'
+import UploadFiles from '@/components/UploadFiles.vue'
 import CompositionItem from '@/components/CompositionItem.vue'
 import AddGenre from '@/components/AddGenre.vue'
 import { auth, songsCollection, genresCollection } from '@/includes/firebase'
 
 export default {
   name: 'ManageView',
-  components: { UploadFile, CompositionItem, AddGenre },
+  components: { UploadFiles, CompositionItem, AddGenre },
   data() {
     return {
       songs: [],
@@ -58,6 +58,9 @@ export default {
     snapshotGenres.forEach(this.addGenres)
   },
   methods: {
+    updateGenres(value) {
+      this.genres.push(value)
+    },
     updateSong(i, { modified_name, genre }) {
       this.songs[i].modified_name = modified_name
       this.songs[i].genre = genre

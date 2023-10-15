@@ -51,6 +51,10 @@ export default {
     updateUnsavedFlag: {
       type: Function,
       required: true
+    },
+    updateGenres: {
+      type: Function,
+      required: true
     }
   },
   data() {
@@ -72,7 +76,9 @@ export default {
       this.addG_alert_msg = 'Please wait! Your genre is being created.'
 
       try {
-        const snapshot = await genresCollection.where('genreName', '==', values.name).get()
+        const snapshot = await genresCollection
+          .where('genre', '==', values.name, '&&', 'uid', '==', auth.currentUser.uid)
+          .get()
 
         if (snapshot.docs.length > 0) {
           this.addG_show_alert = true
@@ -90,6 +96,7 @@ export default {
         }
 
         await genresCollection.add(genre)
+        this.updateGenres(genre)
       } catch (error) {
         this.addG_in_submission = false
         this.addG_alert_variant = 'bg-red-500'
