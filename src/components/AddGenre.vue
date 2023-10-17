@@ -76,18 +76,39 @@ export default {
       this.addG_alert_msg = 'Please wait! Your genre is being created.'
 
       try {
-        const snapshot = await genresCollection
-          .where('genre', '==', values.name, '&&', 'uid', '==', auth.currentUser.uid)
+        let valName = values.name.charAt(0).toUpperCase() + values.name.slice(1)
+
+        let snapshot = await genresCollection
+          .where('genre', '==', valName)
+          .where('uid', '==', auth.currentUser.uid)
           .get()
 
         if (snapshot.docs.length > 0) {
           this.addG_show_alert = true
           this.addG_in_submission = false
           this.addG_alert_variant = 'bg-red-500'
-          this.addG_alert_msg = 'You have already this genre in db.'
+          this.addG_alert_msg = 'You have already this genre in db.C'
 
           return
         }
+
+        valName = values.name.charAt(0).toLowerCase() + values.name.slice(1)
+
+        snapshot = await genresCollection
+          .where('genre', '==', valName)
+          .where('uid', '==', auth.currentUser.uid)
+          .get()
+
+        if (snapshot.docs.length > 0) {
+          this.addG_show_alert = true
+          this.addG_in_submission = false
+          this.addG_alert_variant = 'bg-red-500'
+          this.addG_alert_msg = 'You have already this genre in db.G'
+
+          return
+        }
+
+        console.log('continue it!!!!!!!!')
 
         const genre = {
           uid: auth.currentUser.uid,

@@ -14,11 +14,13 @@
             <div
               class="transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
             >
-              <div
+              <button
+                @click.prevent="playMusic"
+                type="button"
                 class="text-2xl font-semibold bg-green-500 h-11 w-11 rounded-full flex items-center justify-center"
               >
-                <i class="fas fa-play"></i>
-              </div>
+                <icon-el :icon="!playingMusic ? 'play' : 'pause'" clr="gray-600" size="2xl" />
+              </button>
             </div>
           </div>
         </div>
@@ -61,6 +63,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia'
+import usePlayerStore from '@/stores/player'
 import SongLike from '@/components/SongLike.vue'
 
 export default {
@@ -70,6 +74,27 @@ export default {
     song: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      playNewSong: false,
+      playingMusic: false
+    }
+  },
+  computed: {
+    ...mapState(usePlayerStore, ['playing'])
+  },
+  methods: {
+    ...mapActions(usePlayerStore, ['newSong', 'toggleAudio']),
+    playMusic() {
+      this.playingMusic = !this.playingMusic
+
+      if (!this.playNewSong) {
+        this.newSong(this.song)
+      } else this.toggleAudio()
+
+      this.playNewSong = true
     }
   }
 }

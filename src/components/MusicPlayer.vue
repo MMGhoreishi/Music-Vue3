@@ -4,7 +4,7 @@
     class="fixed bottom-0 left-0 bg-white dark:bg-gray-900 px-4 py-2 w-full border-t border-solid border-white"
   >
     <!-- Track Info -->
-    <div class="text-center" v-if="current_song.modified_name">
+    <div class="text-center dark:text-white" v-if="current_song.modified_name">
       <span class="song-title font-bold">{{ current_song.modified_name }}</span> by
       <span class="song-artist">{{ current_song.display_name }}</span>
     </div>

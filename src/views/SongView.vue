@@ -17,7 +17,7 @@
         </button>
         <div class="z-50 text-left ml-8">
           <!-- Song Info -->
-          <div class="text-3xl font-bold">{{ song.modified_name }}</div>
+          <div class="text-3xl font-bold">{{ song.modified_name.replace('.mp3', '') }}</div>
           <div>{{ song.genre }}</div>
 
           <div class="mt-3">
@@ -84,7 +84,7 @@
         <!-- Comment Author -->
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>
-          <time>{{ comment.datePosted }}</time>
+          <time> {{ commentDate(comment.datePosted) }}</time>
         </div>
 
         <p>
@@ -100,6 +100,7 @@ import { songsCollection, commentsCollection, auth } from '@/includes/firebase'
 import { mapState, mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 import usePlayerStore from '@/stores/player'
+import moment from 'moment'
 import SongLike from '@/components/SongLike.vue'
 
 export default {
@@ -149,6 +150,9 @@ export default {
   },
   methods: {
     ...mapActions(usePlayerStore, ['newSong']),
+    commentDate(date) {
+      return moment(date).fromNow()
+    },
     async addComment(values, { resetForm }) {
       this.comment_in_submission = true
       this.comment_show_alert = true
