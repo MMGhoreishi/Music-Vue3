@@ -85,11 +85,6 @@ export default {
   computed: {
     ...mapState(usePlayerStore, ['playing', 'current_song'])
   },
-  mounted() {
-    console.log('///////')
-    console.log(this.playing)
-    console.log(this.current_song)
-  },
   methods: {
     ...mapActions(usePlayerStore, ['newSong', 'toggleAudio']),
     playMusic() {
