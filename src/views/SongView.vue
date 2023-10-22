@@ -17,7 +17,8 @@
         </button>
         <div class="z-50 text-left ml-8">
           <!-- Song Info -->
-          <div class="text-3xl font-bold">{{ song.modified_name.replace('.mp3', '') }}</div>
+          <!-- .replace('.mp3', '') -->
+          <div class="text-3xl font-bold">{{ song.modified_name }}</div>
           <div>{{ song.genre }}</div>
 
           <div class="mt-3">
@@ -143,7 +144,7 @@ export default {
 
       vm.sort = sort === '1' || sort === '2' ? sort : '1'
 
-      vm.song = docSnapshot.data()
+      vm.song = { docID: to.params.id, ...docSnapshot.data() }
 
       vm.getComments()
     })

@@ -19,7 +19,13 @@
                 type="button"
                 class="text-2xl font-semibold bg-green-500 h-11 w-11 rounded-full flex items-center justify-center"
               >
-                <icon-el :icon="!playingMusic ? 'play' : 'pause'" clr="gray-600" size="2xl" />
+                <icon-el
+                  v-if="this.current_song.docID === song.docID"
+                  :icon="!playing ? 'play' : 'pause'"
+                  clr="gray-600"
+                  size="xl"
+                />
+                <icon-el v-else :icon="'play'" clr="gray-600" size="2xl" />
               </button>
             </div>
           </div>
@@ -76,25 +82,22 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      playNewSong: false,
-      playingMusic: false
-    }
-  },
   computed: {
-    ...mapState(usePlayerStore, ['playing'])
+    ...mapState(usePlayerStore, ['playing', 'current_song'])
+  },
+  mounted() {
+    console.log('///////')
+    console.log(this.playing)
+    console.log(this.current_song)
   },
   methods: {
     ...mapActions(usePlayerStore, ['newSong', 'toggleAudio']),
     playMusic() {
-      this.playingMusic = !this.playingMusic
+      if (this.current_song.docID !== this.song.docID) this.newSong(this.song)
+      else this.toggleAudio()
 
-      if (!this.playNewSong) {
-        this.newSong(this.song)
-      } else this.toggleAudio()
-
-      this.playNewSong = true
+      console.log('playMusic2>>>', this.current_song)
+      console.log(this.song)
     }
   }
 }
