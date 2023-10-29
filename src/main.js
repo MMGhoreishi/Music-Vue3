@@ -9,6 +9,9 @@ import { registerSW } from 'virtual:pwa-register'
 import progressBar from '@/includes/progress-bar'
 import withUUID from 'vue-uuid'
 
+import VueAwesomePaginate from 'vue-awesome-paginate'
+import 'vue-awesome-paginate/dist/style.css'
+
 import './assets/base.css'
 import './assets/main.css'
 import 'nprogress/nprogress.css'
@@ -26,6 +29,7 @@ auth.onAuthStateChanged(() => {
     app.use(createPinia())
     app.use(router)
     app.use(VeeValidatePlugin)
+    app.use(VueAwesomePaginate)
 
     app.mount('#app')
   }

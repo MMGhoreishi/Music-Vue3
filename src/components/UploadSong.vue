@@ -212,9 +212,6 @@ export default {
             this.uploads[uploadIndex].text_class = 'text-green-400'
             this.is_dragover = false
             this.changeSongId(songSnapshot.id)
-
-            console.log('my validation cover>>>>')
-            console.log(this.validationCover)
           }
         )
       })

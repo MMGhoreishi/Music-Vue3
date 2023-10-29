@@ -41,60 +41,84 @@
         <div
           class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10 px-5"
         >
-          <song-item v-for="song in songs" :key="song.docID" :song="song" />
+          <song-item v-for="song in limitSongs()" :key="song.docID" :song="song" />
         </div>
         <!-- .. end Playlist -->
+
+        <pagination-data-dark-mode
+          v-if="isDark"
+          :totalItems="totalItems"
+          :itemsPerPage="maxPerPage"
+          :maxPagesShown="maxPagesShown"
+          :getDataForCurrentPage="this.getSongs"
+        />
+
+        <pagination-data-light-mode
+          v-if="!isDark"
+          :totalItems="totalItems"
+          :itemsPerPage="maxPerPage"
+          :maxPagesShown="maxPagesShown"
+          :getDataForCurrentPage="this.getSongs"
+        />
       </div>
     </section>
   </main>
 </template>
 
 <script>
-import { songsCollection } from '@/includes/firebase'
+import { useDark } from '@vueuse/core'
+import PaginationDataDarkMode from '@/components/PaginationDataDarkMode.vue'
+import PaginationDataLightMode from '@/components/PaginationDataLightMode.vue'
+import { songsCollection, numbersCollection } from '@/includes/firebase'
 import SongItem from '@/components/SongItem.vue'
 import AddToHomeBtn from '@/components/AddToHomeBtn.vue'
 
 export default {
   name: 'HomeView',
-  components: { SongItem, AddToHomeBtn },
+  components: { SongItem, AddToHomeBtn, PaginationDataDarkMode, PaginationDataLightMode },
   data() {
     return {
+      isDark: useDark(),
+
       songs: [],
       maxPerPage: 3, //25
-      pendingRequest: false
+      maxPerPage2: 3,
+
+      totalItems: 1,
+      maxPagesShown: 1,
+      lastDocIndex: -1
     }
   },
   async created() {
     this.getSongs()
-
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    handleScroll() {
-      const { scrollTop, offsetHeight } = document.documentElement
-      const { innerHeight } = window
-      const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight
-
-      if (bottomOfWindow) this.getSongs()
-    },
-    async getSongs() {
-      if (this.pendingRequest) return
-
-      this.pendingRequest = true
-
+    async getSongs(newVal) {
       let snapshots
 
-      if (this.songs.length) {
-        const lastDoc = await songsCollection.doc(this.songs[this.songs.length - 1].docID).get()
-        snapshots = await songsCollection
-          .orderBy('modified_name')
-          .startAfter(lastDoc)
-          .limit(this.maxPerPage)
-          .get()
-      } else snapshots = await songsCollection.orderBy('modified_name').limit(this.maxPerPage).get()
+      if (!newVal) {
+        const snapshotSongsNumber = await numbersCollection.get()
+        snapshotSongsNumber.forEach(async (document) => {
+          this.totalItems = document.data().songs
+          this.maxPagesShown = Math.round(document.data().songs / this.maxPerPage)
+        })
+
+        snapshots = await songsCollection.orderBy('modified_name').limit(this.maxPerPage).get()
+      } else {
+        this.lastDocIndex = newVal * this.maxPerPage - this.maxPerPage
+        if (this.lastDocIndex > 0) this.lastDocIndex -= 1
+
+        this.maxPerPage2 = newVal * this.maxPerPage
+
+        if (this.songs.length - 1 < this.lastDocIndex + this.maxPerPage) {
+          const lastDoc = await songsCollection.doc(this.songs[this.lastDocIndex].docID).get()
+          snapshots = await songsCollection
+            .orderBy('modified_name')
+            .startAfter(lastDoc)
+            .limit(this.maxPerPage)
+            .get()
+        } else return
+      }
 
       snapshots.forEach((document) => {
         this.songs.push({
@@ -102,8 +126,16 @@ export default {
           ...document.data()
         })
       })
+    },
+    limitSongs() {
+      if (this.lastDocIndex === 0) this.lastDocIndex -= 1
+      const songs2 = []
 
-      this.pendingRequest = false
+      this.songs.forEach((item, index) => {
+        if (index > this.lastDocIndex && index < this.maxPerPage2) songs2.push(item)
+      })
+
+      return songs2
     }
   }
 }

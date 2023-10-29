@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { storage, songsCollection } from '@/includes/firebase'
+import { storage, songsCollection, numbersCollection } from '@/includes/firebase'
 
 export default {
   name: 'UploadCover',
@@ -208,6 +208,13 @@ export default {
       if (newVal && this.finishTask && this.btnClicked) {
         try {
           await songsCollection.doc(this.songId).update({ coverUrl: this.coverUrl })
+
+          const snapshotSongsNumber = await numbersCollection.get()
+
+          snapshotSongsNumber.forEach(
+            async (document) =>
+              await numbersCollection.doc(document.id).update({ songs: document.data().songs + 1 })
+          )
         } catch (error) {
           this.uploads[this.uploadIndex].variant = 'bg-red-400'
           this.uploads[this.uploadIndex].icon = 'times'
