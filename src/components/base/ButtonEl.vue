@@ -10,62 +10,63 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: 'ButtonEl',
-  props: {
-    type: {
-      validator(value) {
-        return ['button', 'reset', 'submit'].includes(value)
-      },
-      default: 'button'
+<script setup lang="ts">
+import { computed, PropType } from 'vue'
+
+const { bgClr, bgClrDark, txtClr, hvrBg, hvrTxt, roundedFull } = defineProps({
+  type: {
+    validator(value: string) {
+      return ['button', 'reset', 'submit'].includes(value)
     },
-    text: {
-      type: String,
-      required: true
-    },
-    disabled: {
-      type: Boolean,
-      default: true
-    },
-    bgClr: {
-      type: String,
-      required: true
-    },
-    bgClrDark: {
-      type: String
-    },
-    txtClr: {
-      type: String,
-      required: true
-    },
-    hvrBg: {
-      type: String,
-      required: true
-    },
-    hvrTxt: {
-      type: String,
-      required: true
-    },
-    roundedFull: {
-      type: Boolean,
-      default: false
-    },
-    click: {
-      type: Function
-    }
+    default: 'button'
   },
-  computed: {
-    bindClasses() {
-      return [
-        this.bgClr ? 'bg-' + this.bgClr : null,
-        this.bgClrDark ? 'dark:bg-' + this.bgClrDark : null,
-        this.txtClr ? 'text-' + this.txtClr : null,
-        this.hvrBg ? 'hover:bg-' + this.hvrBg : null,
-        this.hvrTxt ? 'hover:text-' + this.hvrTxt : null,
-        this.roundedFull ? 'rounded-full' : 'rounded'
-      ]
-    }
+  text: {
+    type: String as PropType<string>,
+    required: true
+  },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    default: true
+  },
+  bgClr: {
+    type: String as PropType<string>,
+    required: true
+  },
+  bgClrDark: {
+    type: String as PropType<string>,
+    required: false
+  },
+  txtClr: {
+    type: String as PropType<string>,
+    required: true
+  },
+  hvrBg: {
+    type: String as PropType<string>,
+    required: true
+  },
+  hvrTxt: {
+    type: String as PropType<string>,
+    required: true
+  },
+  roundedFull: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+    required: false
+  },
+  click: {
+    type: Function as PropType<Function>,
+    required: true
   }
-}
+})
+
+const bindClasses = computed(() => {
+  return [
+    bgClr ? 'bg-' + bgClr : null,
+    bgClrDark ? 'dark:bg-' + bgClrDark : null,
+    txtClr ? 'text-' + txtClr : null,
+    hvrBg ? 'hover:bg-' + hvrBg : null,
+    hvrTxt ? 'hover:text-' + hvrTxt : null,
+    roundedFull ? 'rounded-full' : 'rounded'
+  ]
+})
 </script>
