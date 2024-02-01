@@ -2,55 +2,56 @@
   <i :class="bindClasses"></i>
 </template>
 
-<script>
-export default {
-  name: 'IconEl',
-  props: {
-    icon: {
-      type: String,
-      required: true
-    },
-    size: {
-      validator(value) {
-        return [
-          'xs',
-          'sm',
-          'base',
-          'lg',
-          'xl',
-          '2xl',
-          '3xl',
-          '4xl',
-          '5xl',
-          '6xl',
-          '7xl',
-          '8xl',
-          '9xl'
-        ].includes(value)
-      },
-      required: true
-    },
-    right: {
-      type: Boolean,
-      default: false
-    },
-    clr: {
-      type: String
-    },
-    clrDark: {
-      type: String
-    }
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const { icon, size, clr, clrDark, right } = defineProps({
+  icon: {
+    type: String,
+    required: true
   },
-  computed: {
-    bindClasses() {
+  size: {
+    validator(value: string): boolean {
       return [
-        this.icon ? 'fa fa-' + this.icon : null,
-        this.size ? 'text-' + this.size : null,
-        this.clr ? 'text-' + this.clr : null,
-        this.clrDark ? 'dark:text-' + this.clrDark : null,
-        this.right ? ' float-right' : null
-      ]
-    }
+        'xs',
+        'sm',
+        'base',
+        'lg',
+        'xl',
+        '2xl',
+        '3xl',
+        '4xl',
+        '5xl',
+        '6xl',
+        '7xl',
+        '8xl',
+        '9xl'
+      ].includes(value)
+    },
+    required: true
+  },
+  right: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
+  clr: {
+    type: String,
+    required: false
+  },
+  clrDark: {
+    type: String,
+    required: false
   }
-}
+})
+
+const bindClasses = computed(() => {
+  return [
+    icon ? 'fa fa-' + icon : null,
+    size ? 'text-' + size : null,
+    clr ? 'text-' + clr : null,
+    clrDark ? 'dark:text-' + clrDark : null,
+    right ? ' float-right' : null
+  ]
+})
 </script>
