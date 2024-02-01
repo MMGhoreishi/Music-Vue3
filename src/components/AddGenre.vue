@@ -42,96 +42,89 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { genresCollection, auth } from '@/includes/firebase'
 
-export default {
-  name: 'AddGenre',
-  props: {
-    updateUnsavedFlag: {
-      type: Function,
-      required: true
-    },
-    updateGenres: {
-      type: Function,
-      required: true
-    }
+const { updateUnsavedFlag, updateGenres } = defineProps({
+  updateUnsavedFlag: {
+    type: Function,
+    required: true
   },
-  data() {
-    return {
-      schema: {
-        name: 'required|min:3|max:100|alpha_spaces'
-      },
-      addG_in_submission: false,
-      addG_show_alert: false,
-      addG_alert_variant: 'bg-blue-500',
-      addG_alert_msg: 'Please wait! Your genre is being created.'
-    }
-  },
-  methods: {
-    async addGenre(values, { resetForm }) {
-      this.addG_show_alert = true
-      this.addG_in_submission = true
-      this.addG_alert_variant = 'bg-blue-500'
-      this.addG_alert_msg = 'Please wait! Your genre is being created.'
-
-      try {
-        let valName = values.name.charAt(0).toUpperCase() + values.name.slice(1)
-
-        let snapshot = await genresCollection
-          .where('genre', '==', valName)
-          .where('uid', '==', auth.currentUser.uid)
-          .get()
-
-        if (snapshot.docs.length > 0) {
-          this.addG_show_alert = true
-          this.addG_in_submission = false
-          this.addG_alert_variant = 'bg-red-500'
-          this.addG_alert_msg = 'You have already this genre in db.C'
-
-          return
-        }
-
-        valName = values.name.charAt(0).toLowerCase() + values.name.slice(1)
-
-        snapshot = await genresCollection
-          .where('genre', '==', valName)
-          .where('uid', '==', auth.currentUser.uid)
-          .get()
-
-        if (snapshot.docs.length > 0) {
-          this.addG_show_alert = true
-          this.addG_in_submission = false
-          this.addG_alert_variant = 'bg-red-500'
-          this.addG_alert_msg = 'You have already this genre in db.G'
-
-          return
-        }
-
-        console.log('continue it!!!!!!!!')
-
-        const genre = {
-          uid: auth.currentUser.uid,
-          genre: values.name,
-          songs: null
-        }
-
-        await genresCollection.add(genre)
-        this.updateGenres(genre)
-      } catch (error) {
-        this.addG_in_submission = false
-        this.addG_alert_variant = 'bg-red-500'
-        this.addG_alert_msg = 'An unexpected error occured. Please try again later.'
-        return
-      }
-
-      this.updateUnsavedFlag(false)
-      this.addG_in_submission = false
-      this.addG_alert_variant = 'bg-green-500'
-      this.addG_alert_msg = 'Success! Your genre has been created.'
-
-      resetForm()
-    }
+  updateGenres: {
+    type: Function,
+    required: true
   }
+})
+
+const schema = {
+  name: 'required|min:3|max:100|alpha_spaces'
+}
+
+const addG_in_submission = ref(false)
+const addG_show_alert = ref(false)
+const addG_alert_variant = ref('bg-blue-500')
+const addG_alert_msg = ref('Please wait! Your genre is being created.')
+
+const addGenre = async (values, { resetForm }) => {
+  addG_show_alert.value = true
+  addG_in_submission.value = true
+  addG_alert_variant.value = 'bg-blue-500'
+  addG_alert_msg.value = 'Please wait! Your genre is being created.'
+
+  try {
+    let valName = values.name.charAt(0).toUpperCase() + values.name.slice(1)
+
+    let snapshot = await genresCollection
+      .where('genre', '==', valName)
+      .where('uid', '==', auth.currentUser.uid)
+      .get()
+
+    if (snapshot.docs.length > 0) {
+      addG_show_alert.value = true
+      addG_in_submission.value = false
+      addG_alert_variant.value = 'bg-red-500'
+      addG_alert_msg.value = 'You have already this genre'
+
+      return
+    }
+
+    valName = values.name.charAt(0).toLowerCase() + values.name.slice(1)
+
+    snapshot = await genresCollection
+      .where('genre', '==', valName)
+      .where('uid', '==', auth.currentUser.uid)
+      .get()
+
+    if (snapshot.docs.length > 0) {
+      addG_show_alert.value = true
+      addG_in_submission.value = false
+      addG_alert_variant.value = 'bg-red-500'
+      addG_alert_msg.value = 'You have already this genre'
+
+      return
+    }
+
+    const genre = {
+      uid: auth.currentUser.uid,
+      genre: values.name,
+      songs: null
+    }
+
+    await genresCollection.add(genre)
+    updateGenres(genre)
+  } catch (error) {
+    addG_in_submission.value = false
+    addG_alert_variant.value = 'bg-red-500'
+    addG_alert_msg.value = 'An unexpected error occured. Please try again later.'
+    return
+  }
+
+  updateUnsavedFlag(false)
+  addG_in_submission.value = false
+  addG_alert_variant.value = 'bg-green-500'
+  addG_alert_msg.value = 'Success! Your genre has been created.'
+
+  resetForm()
 }
 </script>
