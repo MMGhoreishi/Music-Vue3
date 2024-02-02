@@ -72,83 +72,78 @@
   </div>
 </template>
 
-<script>
-import { songsCollection, storage } from '@/includes/firebase'
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { songsCollection, storage } from '../includes/firebase'
 
-export default {
-  name: 'CompositionItem',
-  props: {
-    song: {
-      type: Object,
-      required: true
-    },
-    genres: {
-      type: Array,
-      required: true
-    },
-    updateSong: {
-      type: Function,
-      required: true
-    },
-    index: {
-      type: Number,
-      required: true
-    },
-    removeSong: {
-      type: Function,
-      required: true
-    },
-    updateUnsavedFlag: {
-      type: Function,
-      required: true
-    }
+const { song, index, updateSong, updateUnsavedFlag, removeSong } = defineProps({
+  song: {
+    type: Object,
+    required: true
   },
-  data() {
-    return {
-      showForm: false,
-      schema: {
-        modified_name: 'songTitle',
-        genre: 'required'
-      },
-      in_submission: false,
-      show_alert: false,
-      alert_variant: 'bg-blue-500',
-      alert_message: 'Please wait! Updating song info.'
-    }
+  genres: {
+    type: Array,
+    required: true
   },
-  methods: {
-    async edit(values) {
-      this.in_submission = true
-      this.show_alert = true
-      this.alert_variant = 'bg-blue-500'
-      this.alert_message = 'Please wait! Updating song info.'
-
-      try {
-        await songsCollection.doc(this.song.docID).update(values)
-      } catch (error) {
-        this.in_submission = false
-        this.alert_variant = 'bg-red-500'
-        this.alert_message = 'Something went wrong! Try again later'
-        return
-      }
-
-      this.updateSong(this.index, values)
-      this.updateUnsavedFlag(false)
-
-      this.in_submission = false
-      this.alert_variant = 'bg-green-500'
-      this.alert_message = 'Success!'
-    },
-    async deleteSong() {
-      const storageRef = storage.ref()
-      const songRef = storageRef.child(`songs/${this.song.original_name}`)
-
-      await songRef.delete()
-
-      await songsCollection.doc(this.song.docID).delete()
-
-      this.removeSong(this.index)
-    }
+  updateSong: {
+    type: Function,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true
+  },
+  removeSong: {
+    type: Function,
+    required: true
+  },
+  updateUnsavedFlag: {
+    type: Function,
+    required: true
   }
+})
+
+const showForm = ref<Boolean>(false)
+const schema = reactive({
+  modified_name: 'songTitle',
+  genre: 'required'
+})
+const in_submission = ref<Boolean>(false)
+const show_alert = ref<Boolean>(false)
+const alert_variant = ref<String>('bg-blue-500')
+const alert_message = ref<String>('Please wait! Updating song info.')
+
+const edit = async (values) => {
+  in_submission.value = true
+  show_alert.value = true
+  alert_variant.value = 'bg-blue-500'
+  alert_message.value = 'Please wait! Updating song info.'
+
+  try {
+    await songsCollection.doc(song.docID).update(values)
+  } catch (error) {
+    in_submission.value = false
+    alert_variant.value = 'bg-red-500'
+    alert_message.value = 'Something went wrong! Try again later'
+    return
+  }
+
+  updateSong(index, values)
+  updateUnsavedFlag(false)
+
+  in_submission.value = false
+  alert_variant.value = 'bg-green-500'
+  alert_message.value = 'Success!'
+}
+
+const deleteSong = async () => {
+  const storageRef = storage.ref()
+  const songRef = storageRef.child(`songs/${song.original_name}`)
+
+  await songRef.delete()
+
+  await songsCollection.doc(song.docID).delete()
+
+  removeSong(index)
 }
 </script>
