@@ -42,9 +42,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-import { genresCollection, auth } from '@/includes/firebase'
+import { genresCollection, auth } from '../includes/firebase'
 
 const { updateUnsavedFlag, updateGenres } = defineProps({
   updateUnsavedFlag: {

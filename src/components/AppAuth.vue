@@ -1,6 +1,10 @@
 <template>
   <!-- Auth Modal -->
-  <div class="fixed z-10 inset-0 overflow-y-auto dark:text-white" id="modal" :class="hiddenClass">
+  <div
+    class="fixed z-10 inset-0 overflow-y-auto dark:text-white"
+    id="modal"
+    :class="store.hiddenClass"
+  >
     <div
       class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
     >
@@ -20,7 +24,7 @@
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
-            <div class="modal-close cursor-pointer z-50" @click="modalVisibility = false">
+            <div class="modal-close cursor-pointer z-50" @click="store.isOpen = false">
               <icon-el icon="times" size="xl" />
             </div>
           </div>
@@ -55,40 +59,27 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapWritableState } from 'pinia'
-import useModalStore from '@/stores/modal'
-import AppLoginForm from '@/components/LoginForm.vue'
-import AppRegisterForm from '@/components/RegisterForm.vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import useModalStore from '../stores/modal'
+import AppLoginForm from '../components/LoginForm.vue'
+import AppRegisterForm from '../components/RegisterForm.vue'
 
-export default {
-  name: 'AppAuth',
-  components: {
-    AppLoginForm,
-    AppRegisterForm
-  },
-  data() {
-    return {
-      tab: 'login'
-    }
-  },
-  computed: {
-    ...mapState(useModalStore, ['hiddenClass']),
-    ...mapWritableState(useModalStore, {
-      modalVisibility: 'isOpen'
-    }),
-    loginStyle() {
-      return {
-        'hover:text-white text-white bg-violet-400': this.tab === 'login',
-        'hover:text-violet-400': this.tab === 'register'
-      }
-    },
-    registerStyle() {
-      return {
-        'hover:text-white text-white bg-violet-400': this.tab === 'register',
-        'hover:text-violet-400': this.tab === 'login'
-      }
-    }
+const store = useModalStore()
+
+const tab = ref<String>('login')
+
+const loginStyle = computed(() => {
+  return {
+    'hover:text-white text-white bg-violet-400': tab.value === 'login',
+    'hover:text-violet-400': tab.value === 'register'
   }
-}
+})
+
+const registerStyle = computed(() => {
+  return {
+    'hover:text-white text-white bg-violet-400': tab.value === 'register',
+    'hover:text-violet-400': tab.value === 'login'
+  }
+})
 </script>
