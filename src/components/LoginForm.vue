@@ -42,45 +42,38 @@
   </vee-form>
 </template>
 
-<script>
-import { mapActions } from 'pinia'
-import useUserStore from '@/stores/user'
+<script setup lang="ts">
+import { reactive, ref } from 'vue'
+import useUserStore from '../stores/user'
 
-export default {
-  name: 'LoginForm',
-  data() {
-    return {
-      loginSchema: {
-        email: 'required|min:3|max:100|email',
-        password: 'required|min:9|max:100'
-      },
-      login_in_submission: false,
-      login_show_alert: false,
-      login_alert_variant: 'bg-blue-500',
-      login_alert_msg: 'Please wait! We are logging you in.'
-    }
-  },
-  methods: {
-    ...mapActions(useUserStore, ['authenticate']),
-    async login(values) {
-      this.login_in_submission = true
-      this.login_show_alert = true
-      this.login_alert_variant = 'bg-blue-500'
-      this.login_alert_msg = 'Please wait! We are logging you in.'
+const userStore = useUserStore()
 
-      try {
-        await this.authenticate(values)
-      } catch (error) {
-        this.login_in_submission = false
-        this.login_alert_variant = 'bg-red-500'
-        this.login_alert_msg = 'Invalid login details.'
-        return
-      }
+const loginSchema = reactive({
+  email: 'required|min:3|max:100|email',
+  password: 'required|min:9|max:100'
+})
+const login_in_submission = ref<Boolean>(false)
+const login_show_alert = ref<Boolean>(false)
+const login_alert_variant = ref<String>('bg-blue-500')
+const login_alert_msg = ref<String>('Please wait! We are logging you in.')
 
-      this.login_alert_variant = 'bg-green-500'
-      this.login_alert_msg = 'Success! You are now logged in.'
-      window.location.reload()
-    }
+const login = async (values) => {
+  login_in_submission.value = true
+  login_show_alert.value = true
+  login_alert_variant.value = 'bg-blue-500'
+  login_alert_msg.value = 'Please wait! We are logging you in.'
+
+  try {
+    await userStore.authenticate(values)
+  } catch (error) {
+    login_in_submission.value = false
+    login_alert_variant.value = 'bg-red-500'
+    login_alert_msg.value = 'Invalid login details.'
+    return
   }
+
+  login_alert_variant.value = 'bg-green-500'
+  login_alert_msg.value = 'Success! You are now logged in.'
+  window.location.reload()
 }
 </script>
