@@ -44,27 +44,24 @@
   </header>
 </template>
 
-<script>
-import { mapStores } from 'pinia'
-import useModalStore from '@/stores/modal'
-import useUserStore from '@/stores/user'
-import DarkLightBtn from '@/components/DarkLightBtn.vue'
+<script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router'
+import useModalStore from '../stores/modal'
+import useUserStore from '../stores/user'
+import DarkLightBtn from '../components/DarkLightBtn.vue'
 
-export default {
-  name: 'AppHeader',
-  components: { DarkLightBtn },
-  computed: {
-    ...mapStores(useModalStore, useUserStore)
-  },
-  methods: {
-    toggleAuthModal() {
-      this.modalStore.isOpen = !this.modalStore.isOpen
-    },
-    signOut() {
-      this.userStore.signOut()
+const router = useRouter()
+const route = useRoute()
 
-      if (this.$route.meta.requiresAuth) this.$router.push({ name: 'home' })
-    }
-  }
+const modalStore = useModalStore()
+const userStore = useUserStore()
+
+const toggleAuthModal = () => {
+  modalStore.isOpen = !modalStore.isOpen
+}
+
+const signOut = () => {
+  userStore.signOut()
+  if (route.meta.requiresAuth) router.push({ name: 'home' })
 }
 </script>

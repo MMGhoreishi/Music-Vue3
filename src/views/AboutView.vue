@@ -4,8 +4,4 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'AboutView'
-}
-</script>
+<script setup lang="ts"></script>
