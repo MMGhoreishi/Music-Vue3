@@ -59,14 +59,12 @@ const { bgClr, bgClrDark, txtClr, hvrBg, hvrTxt, roundedFull } = defineProps({
   }
 })
 
-const bindClasses = computed(() => {
-  return [
-    bgClr ? 'bg-' + bgClr : null,
-    bgClrDark ? 'dark:bg-' + bgClrDark : null,
-    txtClr ? 'text-' + txtClr : null,
-    hvrBg ? 'hover:bg-' + hvrBg : null,
-    hvrTxt ? 'hover:text-' + hvrTxt : null,
-    roundedFull ? 'rounded-full' : 'rounded'
-  ]
-})
+const bindClasses = computed(() => [
+  bgClr ? 'bg-' + bgClr : null,
+  bgClrDark ? 'dark:bg-' + bgClrDark : null,
+  txtClr ? 'text-' + txtClr : null,
+  hvrBg ? 'hover:bg-' + hvrBg : null,
+  hvrTxt ? 'hover:text-' + hvrTxt : null,
+  roundedFull ? 'rounded-full' : 'rounded'
+])
 </script>

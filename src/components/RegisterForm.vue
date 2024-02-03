@@ -116,57 +116,50 @@
   </vee-form>
 </template>
 
-<script>
-import { mapActions } from 'pinia'
-import useUserStore from '@/stores/user'
+<script setup lang="ts">
+import { ref } from 'vue'
+import useUserStore from '../stores/user'
 
-export default {
-  name: 'RegisterForm',
-  data() {
-    return {
-      schema: {
-        name: 'required|min:3|max:100|alpha_spaces',
-        email: 'required|min:3|max:100|email',
-        age: 'required|min_value:18|max_value:100',
-        password: 'required|min:9|max:100|excluded:password',
-        confirm_password: 'required|passwords_mismatch:@password',
-        country: 'required|country_excluded:Antarctica',
-        role: 'required',
-        tos: 'tos'
-      },
-      userData: {
-        country: 'USA',
-        role: 'Artist'
-      },
-      reg_in_submission: false,
-      reg_show_alert: false,
-      reg_alert_variant: 'bg-blue-500',
-      reg_alert_msg: 'Please wait! Your account is being created.'
-    }
-  },
-  methods: {
-    ...mapActions(useUserStore, {
-      createUser: 'register'
-    }),
-    async register(values) {
-      this.reg_show_alert = true
-      this.reg_in_submission = true
-      this.reg_alert_variant = 'bg-blue-500'
-      this.reg_alert_msg = 'Please wait! Your account is being created.'
+const userStore = useUserStore()
 
-      try {
-        await this.createUser(values)
-      } catch (error) {
-        this.reg_in_submission = false
-        this.reg_alert_variant = 'bg-red-500'
-        this.reg_alert_msg = 'An unexpected error occured. Please try again later.'
-        return
-      }
+const schema = {
+  name: 'required|min:3|max:100|alpha_spaces',
+  email: 'required|min:3|max:100|email',
+  age: 'required|min_value:18|max_value:100',
+  password: 'required|min:9|max:100|excluded:password',
+  confirm_password: 'required|passwords_mismatch:@password',
+  country: 'required|country_excluded:Antarctica',
+  role: 'required',
+  tos: 'tos'
+}
 
-      this.reg_alert_variant = 'bg-green-500'
-      this.reg_alert_msg = 'Success! Your account has been created.'
-      window.location.reload()
-    }
+const userData = {
+  country: 'USA',
+  role: 'Artist'
+}
+
+const reg_in_submission = ref<Boolean>(false)
+const reg_show_alert = ref<Boolean>(false)
+const reg_alert_variant = ref<String>('bg-blue-500')
+const reg_alert_msg = ref<String>('Please wait! Your account is being created.')
+
+const register = async (values) => {
+  reg_show_alert.value = true
+  reg_in_submission.value = true
+  reg_alert_variant.value = 'bg-blue-500'
+  reg_alert_msg.value = 'Please wait! Your account is being created.'
+
+  try {
+    await userStore.register(values)
+  } catch (error) {
+    reg_in_submission.value = false
+    reg_alert_variant.value = 'bg-red-500'
+    reg_alert_msg.value = 'An unexpected error occured. Please try again later.'
+    return
   }
+
+  reg_alert_variant.value = 'bg-green-500'
+  reg_alert_msg.value = 'Success! Your account has been created.'
+  window.location.reload()
 }
 </script>

@@ -45,13 +45,11 @@ const { icon, size, clr, clrDark, right } = defineProps({
   }
 })
 
-const bindClasses = computed(() => {
-  return [
-    icon ? 'fa fa-' + icon : null,
-    size ? 'text-' + size : null,
-    clr ? 'text-' + clr : null,
-    clrDark ? 'dark:text-' + clrDark : null,
-    right ? ' float-right' : null
-  ]
-})
+const bindClasses = computed(() => [
+  icon ? 'fa fa-' + icon : null,
+  size ? 'text-' + size : null,
+  clr ? 'text-' + clr : null,
+  clrDark ? 'dark:text-' + clrDark : null,
+  right ? ' float-right' : null
+])
 </script>

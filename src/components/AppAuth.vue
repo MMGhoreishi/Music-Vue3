@@ -69,17 +69,13 @@ const store = useModalStore()
 
 const tab = ref<String>('login')
 
-const loginStyle = computed(() => {
-  return {
-    'hover:text-white text-white bg-violet-400': tab.value === 'login',
-    'hover:text-violet-400': tab.value === 'register'
-  }
-})
+const loginStyle = computed(() => ({
+  'hover:text-white text-white bg-violet-400': tab.value === 'login',
+  'hover:text-violet-400': tab.value === 'register'
+}))
 
-const registerStyle = computed(() => {
-  return {
-    'hover:text-white text-white bg-violet-400': tab.value === 'register',
-    'hover:text-violet-400': tab.value === 'login'
-  }
-})
+const registerStyle = computed(() => ({
+  'hover:text-white text-white bg-violet-400': tab.value === 'register',
+  'hover:text-violet-400': tab.value === 'login'
+}))
 </script>
