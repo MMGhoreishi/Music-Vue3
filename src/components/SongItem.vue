@@ -20,8 +20,8 @@
                 class="text-2xl font-semibold bg-green-500 h-11 w-11 rounded-full flex items-center justify-center"
               >
                 <icon-el
-                  v-if="this.current_song.docID === song.docID"
-                  :icon="!playing ? 'play' : 'pause'"
+                  v-if="playerStore.current_song.docID === song.docID"
+                  :icon="!playerStore.playing ? 'play' : 'pause'"
                   clr="gray-600"
                   size="xl"
                 />
@@ -68,32 +68,21 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapState } from 'pinia'
-import usePlayerStore from '@/stores/player'
-import SongLike from '@/components/SongLike.vue'
+<script setup lang="ts">
+import usePlayerStore from '../stores/player'
+import SongLike from '../components/SongLike.vue'
 
-export default {
-  name: 'SongItem',
-  components: { SongLike },
-  props: {
-    song: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    ...mapState(usePlayerStore, ['playing', 'current_song'])
-  },
-  methods: {
-    ...mapActions(usePlayerStore, ['newSong', 'toggleAudio']),
-    playMusic() {
-      if (this.current_song.docID !== this.song.docID) this.newSong(this.song)
-      else this.toggleAudio()
+const playerStore = usePlayerStore()
 
-      console.log('playMusic2>>>', this.current_song)
-      console.log(this.song)
-    }
+const { song } = defineProps({
+  song: {
+    type: Object,
+    required: true
   }
+})
+
+const playMusic = () => {
+  if (playerStore.current_song.docID !== song.docID) playerStore.newSong(song)
+  else playerStore.toggleAudio()
 }
 </script>
