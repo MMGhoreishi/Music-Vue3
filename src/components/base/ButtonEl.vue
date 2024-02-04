@@ -15,7 +15,7 @@ import { computed, PropType } from 'vue'
 
 const { bgClr, bgClrDark, txtClr, hvrBg, hvrTxt, roundedFull } = defineProps({
   type: {
-    validator(value): boolean {
+    validator(value: string): boolean {
       return ['button', 'reset', 'submit'].includes(value)
     },
     default: 'button'

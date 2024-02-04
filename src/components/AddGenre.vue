@@ -14,30 +14,12 @@
       {{ addG_alert_msg }}
     </div>
     <div class="p-6">
-      <vee-form :validation-schema="schema" @submit="addGenre">
-        <!-- Genre Name -->
-        <div class="mb-3">
-          <vee-field
-            type="text"
-            name="name"
-            class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Genre Name"
-            @input="updateUnsavedFlag(true)"
-          />
-          <ErrorMessage class="text-red-600 dark:text-red-300" name="name" />
-        </div>
-
-        <!-- Submit Button -->
-        <button-el
-          type="submit"
-          text="Add Genre"
-          :disabled="addG_in_submission"
-          :bgClr="'violet-500'"
-          txtClr="white"
-          :hvrBg="'violet-600'"
-          hvrTxt="white"
-        />
-      </vee-form>
+      <form-el
+        :inputs="GetFormInputsData([FormInputsEnum.AddGenre])"
+        :updateUnsavedFlag="updateUnsavedFlag"
+        :submitFunction="addGenre"
+        :submitBtnStatus="addG_in_submission"
+      />
     </div>
   </div>
 </template>
@@ -45,6 +27,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { genresCollection, auth } from '../includes/firebase'
+import { FormInputsEnum } from '../utility/FormBase/FormInputsEnum'
+import { GetFormInputsData } from '../utility/FormBase/GetFormInputsData'
 
 const { updateUnsavedFlag, updateGenres } = defineProps({
   updateUnsavedFlag: {
@@ -56,10 +40,6 @@ const { updateUnsavedFlag, updateGenres } = defineProps({
     required: true
   }
 })
-
-const schema = {
-  name: 'required|min:3|max:100|alpha_spaces'
-}
 
 const addG_in_submission = ref(false)
 const addG_show_alert = ref(false)
