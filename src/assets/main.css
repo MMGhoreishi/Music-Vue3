@@ -77,3 +77,63 @@ input[type='file'] {
     background-position: -4000px 0;
   }
 }
+
+/* ---paginationDataLightMode--- */
+.paginationDataLightMode .pagination-container {
+  column-gap: 10px;
+}
+.paginationDataLightMode .paginate-buttons {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #e5e7eb;
+  border: 1px solid #c4b5fd;
+  color: rgb(112, 112, 112);
+  font-weight: bold;
+}
+.paginationDataLightMode .paginate-buttons:hover {
+  background-color: #e8deff;
+}
+.paginationDataLightMode .active-page {
+  background-color: #8b5cf6;
+  border: 1px solid #8b5cf6;
+  color: white;
+}
+.paginationDataLightMode .active-page:hover {
+  background-color: #8b5cf6;
+}
+.paginationDataLightMode .back-button:active,
+.paginationDataLightMode .next-button:active {
+  background-color: #c4c4c4;
+}
+
+/* ---paginationDataDarkMode--- */
+.paginationDataDarkMode .pagination-container {
+  column-gap: 10px;
+}
+.paginationDataDarkMode .paginate-buttons {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #e5e7eb;
+  border: 1px solid #e5e7eb;
+  color: rgb(112, 112, 112);
+  font-weight: bold;
+}
+.paginationDataDarkMode .paginate-buttons:hover {
+  background-color: #e8deff;
+}
+.paginationDataDarkMode .active-page {
+  background-color: #8b5cf6;
+  border: 1px solid #8b5cf6;
+  color: white;
+}
+.paginationDataDarkMode .active-page:hover {
+  background-color: #8b5cf6;
+}
+.paginationDataDarkMode .back-button:active,
+.paginationDataDarkMode .next-button:active {
+  background-color: #c4c4c4;
+}
