@@ -4,7 +4,7 @@
       <icon-el icon="heart" :clr="likeStyle" :clrDark="likeStyleDark" :size="iconSize" />
     </button>
 
-    <span class="dark:text-white ml-2 italic">{{ songLikesNum }}</span>
+    <span class="dark:text-white ml-2 italic text-sm">{{ songLikesNum }}</span>
   </div>
 </template>
 

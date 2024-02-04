@@ -39,7 +39,7 @@
 
         <!-- Playlist -->
         <div
-          class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-10 px-5"
+          class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 py-10 px-5"
         >
           <song-item v-for="song in limitSongs()" :key="song.docID" :song="song" />
         </div>

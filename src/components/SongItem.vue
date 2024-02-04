@@ -35,16 +35,16 @@
           <h5 class="mb-2 text-lg tracking-tight font-semibold">
             <router-link
               :to="{ name: 'song', params: { id: song.docID } }"
-              class="font-bold block text-gray-600 dark:text-white"
+              class="text-base font-bold block text-gray-600 dark:text-white"
             >
               {{ song.modified_name.replace('.mp3', '') }}
             </router-link>
           </h5>
         </a>
-        <p class="mb-10 font-normal">{{ song.display_name }}</p>
+        <p class="mb-10 font-normal text-sm text-gray-400">{{ song.display_name }}</p>
         <div class="absolute bottom-0 w-full px-10 pb-3">
           <div class="grid grid-cols-2">
-            <song-like :song="song" iconSize="xl" />
+            <song-like :song="song" iconSize="sm" />
             <div>
               <router-link
                 custom
@@ -56,8 +56,8 @@
                 v-slot="{ navigate }"
               >
                 <span class="comments float-right" @click="navigate">
-                  <icon-el icon="comments" clr="gray-600" clrDark="white" size="xl" />
-                  <span class="dark:text-white ml-2">{{ song.comment_count }}</span>
+                  <icon-el icon="comments" clr="gray-600" clrDark="white" size="sm" />
+                  <span class="dark:text-white ml-2 text-sm">{{ song.comment_count }}</span>
                 </span>
               </router-link>
             </div>
