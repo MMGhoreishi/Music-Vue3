@@ -18,7 +18,7 @@
             venenatis et sapien. Duis sed magna pulvinar, fringilla lorem eget, ullamcorper urna.
           </p>
         </div>
-        <search-music />
+        <music-search-box />
       </div>
 
       <img
@@ -73,7 +73,7 @@ import PaginationDataLightMode from '@/components/PaginationDataLightMode.vue'
 import { songsCollection, numbersCollection } from '@/includes/firebase'
 import SongItem from '@/components/SongItem.vue'
 import AddToHomeBtn from '@/components/AddToHomeBtn.vue'
-import SearchMusic from '../components/SearchMusic.vue'
+import MusicSearchBox from '../components/MusicSearchBox.vue'
 
 export default {
   name: 'HomeView',
@@ -82,15 +82,15 @@ export default {
     AddToHomeBtn,
     PaginationDataDarkMode,
     PaginationDataLightMode,
-    SearchMusic
+    MusicSearchBox
   },
   data() {
     return {
       isDark: useDark(),
 
       songs: [],
-      maxPerPage: 3, //25
-      maxPerPage2: 3,
+      maxPerPage: 25, //3
+      maxPerPage2: 25, //3
 
       totalItems: 1,
       maxPagesShown: 1,
