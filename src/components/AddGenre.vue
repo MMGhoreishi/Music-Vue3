@@ -47,13 +47,16 @@ const addG_alert_variant = ref('bg-blue-500')
 const addG_alert_msg = ref('Please wait! Your genre is being created.')
 
 const addGenre = async (values, { resetForm }) => {
+  console.log('Add-Genre-Form-Values>>>')
+  console.log(values)
+
   addG_show_alert.value = true
   addG_in_submission.value = true
   addG_alert_variant.value = 'bg-blue-500'
   addG_alert_msg.value = 'Please wait! Your genre is being created.'
 
   try {
-    let valName = values.name.charAt(0).toUpperCase() + values.name.slice(1)
+    let valName = values.genreName.charAt(0).toUpperCase() + values.genreName.slice(1)
 
     let snapshot = await genresCollection
       .where('genre', '==', valName)
@@ -69,7 +72,7 @@ const addGenre = async (values, { resetForm }) => {
       return
     }
 
-    valName = values.name.charAt(0).toLowerCase() + values.name.slice(1)
+    valName = values.genreName.charAt(0).toLowerCase() + values.genreName.slice(1)
 
     snapshot = await genresCollection
       .where('genre', '==', valName)
@@ -87,7 +90,7 @@ const addGenre = async (values, { resetForm }) => {
 
     const genre = {
       uid: auth.currentUser.uid,
-      genre: values.name,
+      genre: values.genreName,
       songs: null
     }
 
