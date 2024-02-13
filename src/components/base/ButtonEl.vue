@@ -55,7 +55,8 @@ const { bgClr, bgClrDark, txtClr, hvrBg, hvrTxt, roundedFull } = defineProps({
   },
   click: {
     type: Function as PropType<Function>,
-    required: true
+    required: false,
+    default: () => ''
   }
 })
 

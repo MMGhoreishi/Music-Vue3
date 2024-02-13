@@ -1,3 +1,5 @@
 export enum FormInputsEnum {
-  AddGenre
+  AddGenre,
+  Email,
+  Password
 }

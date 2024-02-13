@@ -33,7 +33,7 @@ const { inputs } = defineProps({
   },
   updateUnsavedFlag: {
     type: Function as PropType<Function>,
-    required: true
+    required: false
   },
   submitFunction: {
     type: Function as PropType<Function>,
@@ -44,6 +44,9 @@ const { inputs } = defineProps({
     default: false
   }
 })
+
+console.log('Login Inputs>>>>')
+console.log(inputs)
 
 const schema = computed(() => {
   const schemaData = {}

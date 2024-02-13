@@ -6,7 +6,8 @@ export const GetFormInputsData = (enumValues: FormInputsEnum[]): IFormInputsData
   const formInputsData: IFormInputsData[] = []
 
   for (let i = 0; i < enumValues.length; i++) {
-    if (FormInputsData[i].id === enumValues[i]) formInputsData.push(FormInputsData[i])
+    formInputsData.push(FormInputsData.filter((item) => item.id === enumValues[i])[0])
   }
+
   return formInputsData
 }

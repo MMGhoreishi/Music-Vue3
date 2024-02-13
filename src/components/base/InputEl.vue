@@ -28,7 +28,8 @@ defineProps({
   },
   updateUnsavedFlag: {
     type: Function as PropType<Function>,
-    required: true
+    required: false,
+    default: (bool) => ''
   }
 })
 </script>

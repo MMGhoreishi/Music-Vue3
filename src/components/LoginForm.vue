@@ -6,45 +6,18 @@
   >
     {{ login_alert_msg }}
   </div>
-  <vee-form :validation-schema="loginSchema" @submit="login">
-    <!-- Email -->
-    <div class="mb-3">
-      <label class="inline-block mb-2">Email</label>
-      <vee-field
-        name="email"
-        type="email"
-        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Enter Email"
-      />
-      <ErrorMessage class="text-red-600 dark:text-red-300" name="email" />
-    </div>
-    <!-- Password -->
-    <div class="mb-3">
-      <label class="inline-block mb-2">Password</label>
-      <vee-field
-        name="password"
-        type="password"
-        class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Password"
-      />
-      <ErrorMessage class="text-red-600 dark:text-red-300" name="password" />
-    </div>
-
-    <button-el
-      type="submit"
-      text="Submit"
-      :disabled="login_in_submission"
-      :bgClr="'violet-500'"
-      txtClr="white"
-      :hvrBg="'violet-600'"
-      hvrTxt="white"
-    />
-  </vee-form>
+  <form-el
+    :inputs="GetFormInputsData([FormInputsEnum.Email, FormInputsEnum.Password])"
+    :submitFunction="login"
+    :submitBtnStatus="login_in_submission"
+  />
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import useUserStore from '../stores/user'
+import { FormInputsEnum } from '../utility/FormBase/FormInputsEnum'
+import { GetFormInputsData } from '../utility/FormBase/GetFormInputsData'
 
 const userStore = useUserStore()
 
