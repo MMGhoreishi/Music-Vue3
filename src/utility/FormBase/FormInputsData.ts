@@ -10,17 +10,17 @@ export const FormInputsData: IFormInputsData[] = [
     schema: 'required|min:3|max:100|alpha_spaces'
   },
   {
-    id: FormInputsEnum.Password,
-    name: 'password',
-    type: 'password',
-    placeholder: 'Password',
-    schema: 'required|min:9|max:100'
-  },
-  {
     id: FormInputsEnum.Email,
     name: 'email',
     type: 'email',
     placeholder: 'Email',
     schema: 'required|min:3|max:100|email'
+  },
+  {
+    id: FormInputsEnum.Password,
+    name: 'password',
+    type: 'password',
+    placeholder: 'Password',
+    schema: 'required|min:9|max:100'
   }
 ]

@@ -14,17 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import useUserStore from '../stores/user'
 import { FormInputsEnum } from '../utility/FormBase/FormInputsEnum'
 import { GetFormInputsData } from '../utility/FormBase/GetFormInputsData'
 
 const userStore = useUserStore()
 
-const loginSchema = reactive({
-  email: 'required|min:3|max:100|email',
-  password: 'required|min:9|max:100'
-})
 const login_in_submission = ref<Boolean>(false)
 const login_show_alert = ref<Boolean>(false)
 const login_alert_variant = ref<String>('bg-blue-500')
