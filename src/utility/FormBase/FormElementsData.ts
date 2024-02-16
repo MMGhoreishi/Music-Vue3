@@ -1,7 +1,7 @@
-import FormInputsEnum from '../FormBase/FormInputsEnum'
-import IFormInputsData from './IFormInputsData'
+import FormInputsEnum from './FormElementsEnum'
+import IFormElementsData from './IFormElementsData'
 
-const FormInputsData: { [id: number]: IFormInputsData } = {
+const FormElementsData: { [id: number]: IFormElementsData } = {
   [FormInputsEnum.AddGenre]: {
     name: 'genreName',
     type: 'text',
@@ -25,16 +25,14 @@ const FormInputsData: { [id: number]: IFormInputsData } = {
     type: 'select',
     placeholder: 'Choose Country',
     schema: 'required|country_excluded:Antarctica',
-    options: ['USA', 'Mexico', 'Germany', 'Antarctica'],
-    label: 'Country'
+    options: ['USA', 'Mexico', 'Germany', 'Antarctica']
   },
   [FormInputsEnum.Role]: {
     name: 'role',
     type: 'select',
     placeholder: 'Choose Role',
     schema: 'required',
-    options: ['Artist', 'Listener'],
-    label: 'Role'
+    options: ['Artist', 'Listener']
   },
   [FormInputsEnum.AcceptTermsOfService]: {
     name: 'tos',
@@ -63,4 +61,4 @@ const FormInputsData: { [id: number]: IFormInputsData } = {
   }
 }
 
-export default FormInputsData
+export default FormElementsData

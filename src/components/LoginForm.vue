@@ -7,7 +7,7 @@
     {{ login_alert_msg }}
   </div>
   <form-el
-    :inputs="GetFormInputsData([FormInputsEnum.Email, FormInputsEnum.Password])"
+    :inputs="GetFormElementsData([FormElementsEnum.Email, FormElementsEnum.Password])"
     :submitFunction="login"
     :submitBtnStatus="login_in_submission"
   />
@@ -16,8 +16,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import useUserStore from '../stores/user'
-import FormInputsEnum from '../utility/FormBase/FormInputsEnum'
-import GetFormInputsData from '../utility/FormBase/GetFormInputsData'
+import FormElementsEnum from '../utility/FormBase/FormElementsEnum'
+import GetFormElementsData from '../utility/FormBase/GetFormElementsData'
 
 const userStore = useUserStore()
 

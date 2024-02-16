@@ -1,19 +1,23 @@
 <template>
-  <vee-form :validation-schema="schema" @submit="submitFunction">
+  <vee-form :validation-schema="schema" @submit="submitFunction" :initial-values="initialValues">
     <div class="mb-3" :class="{ 'pl-6': item.type === 'checkbox' }" v-for="item in inputs">
+      <!-- Select -->
       <select-el
         :name="item.name"
         :updateUnsavedFlag="updateUnsavedFlag"
         :options="item.options"
-        :label="item.label"
         v-if="item.type === 'select'"
       />
+
+      <!-- Input CheckBox -->
       <checkbox-el
         :name="item.name"
         :updateUnsavedFlag="updateUnsavedFlag"
         :label="item.label"
         v-if="item.type === 'checkbox'"
       />
+
+      <!-- input -->
       <input-el
         :name="item.name"
         :placeholder="item.placeholder"
@@ -38,11 +42,15 @@
 
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import IFormInputsData from '../../utility/FormBase/IFormInputsData'
+import IFormElementsData from '../../utility/FormBase/IFormElementsData'
 
 const { inputs } = defineProps({
+  initialValues: {
+    type: Object as PropType<Object>,
+    required: false
+  },
   inputs: {
-    type: Array as PropType<IFormInputsData[]>,
+    type: Array as PropType<IFormElementsData[]>,
     required: true
   },
   updateUnsavedFlag: {

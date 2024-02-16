@@ -1,4 +1,4 @@
-interface IFormInputsData {
+interface IFormElementsData {
   name: string
   type: 'text' | 'number' | 'email' | 'time' | 'date' | 'password' | 'select' | 'checkbox'
   placeholder: string
@@ -7,4 +7,4 @@ interface IFormInputsData {
   label?: string
 }
 
-export default IFormInputsData
+export default IFormElementsData

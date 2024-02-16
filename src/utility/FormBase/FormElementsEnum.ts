@@ -1,4 +1,4 @@
-enum FormInputsEnum {
+enum FormElementsEnum {
   AddGenre,
   Email,
   Password,
@@ -10,4 +10,4 @@ enum FormInputsEnum {
   AcceptTermsOfService
 }
 
-export default FormInputsEnum
+export default FormElementsEnum

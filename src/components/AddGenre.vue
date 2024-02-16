@@ -15,7 +15,7 @@
     </div>
     <div class="p-6">
       <form-el
-        :inputs="GetFormInputsData([FormInputsEnum.AddGenre])"
+        :inputs="GetFormElementsData([FormElementsEnum.AddGenre])"
         :updateUnsavedFlag="updateUnsavedFlag"
         :submitFunction="addGenre"
         :submitBtnStatus="addG_in_submission"
@@ -27,9 +27,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { genresCollection, auth } from '../includes/firebase'
-// import { FormInputsEnum, GetFormInputsData } from '../utility/FormBase'
-import FormInputsEnum from '../utility/FormBase/FormInputsEnum'
-import GetFormInputsData from '../utility/FormBase/GetFormInputsData'
+import FormElementsEnum from '../utility/FormBase/FormElementsEnum'
+import GetFormElementsData from '../utility/FormBase/GetFormElementsData'
 
 const { updateUnsavedFlag, updateGenres } = defineProps({
   updateUnsavedFlag: {
