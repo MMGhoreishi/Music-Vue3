@@ -58,7 +58,7 @@
           v-if="!isDark"
           :totalItems="totalItems"
           :itemsPerPage="maxPerPage"
-          :maxPagesShown="maxPagesShown"
+          :maxPagesShown="maxPagesShown > 0 ? maxPagesShown : 1"
           :getDataForCurrentPage="this.getSongs"
         />
       </div>
@@ -68,22 +68,10 @@
 
 <script>
 import { useDark } from '@vueuse/core'
-import PaginationDataDarkMode from '@/components/PaginationDataDarkMode.vue'
-import PaginationDataLightMode from '@/components/PaginationDataLightMode.vue'
 import { songsCollection, numbersCollection } from '@/includes/firebase'
-import SongItem from '@/components/SongItem.vue'
-import AddToHomeBtn from '@/components/AddToHomeBtn.vue'
-import MusicSearchBox from '../components/MusicSearchBox.vue'
 
 export default {
   name: 'HomeView',
-  components: {
-    SongItem,
-    AddToHomeBtn,
-    PaginationDataDarkMode,
-    PaginationDataLightMode,
-    MusicSearchBox
-  },
   data() {
     return {
       isDark: useDark(),

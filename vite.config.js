@@ -30,7 +30,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,jpg,}']
       }
     }),
-    Components({ dirs: ['src/components/base'] })
+    Components({ dirs: ['src/components'] })
     //visualizer({ open: true })
   ],
   resolve: {

@@ -1,10 +1,24 @@
 <template>
   <vee-form :validation-schema="schema" @submit="submitFunction">
-    <div class="mb-3" v-for="item in inputs">
+    <div class="mb-3" :class="{ 'pl-6': item.type === 'checkbox' }" v-for="item in inputs">
+      <select-el
+        :name="item.name"
+        :updateUnsavedFlag="updateUnsavedFlag"
+        :options="item.options"
+        :label="item.label"
+        v-if="item.type === 'select'"
+      />
+      <checkbox-el
+        :name="item.name"
+        :updateUnsavedFlag="updateUnsavedFlag"
+        :label="item.label"
+        v-if="item.type === 'checkbox'"
+      />
       <input-el
         :name="item.name"
         :placeholder="item.placeholder"
         :type="item.type"
+        v-if="item.type !== 'checkbox' && item.type !== 'select'"
         :updateUnsavedFlag="updateUnsavedFlag"
       />
     </div>
@@ -24,7 +38,7 @@
 
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { IFormInputsData } from '../../contracts/FormBase/IFormInputsData'
+import IFormInputsData from '../../utility/FormBase/IFormInputsData'
 
 const { inputs } = defineProps({
   inputs: {
@@ -45,7 +59,7 @@ const { inputs } = defineProps({
   }
 })
 
-console.log('Login Inputs>>>>')
+console.log('Test-Select>>>')
 console.log(inputs)
 
 const schema = computed(() => {

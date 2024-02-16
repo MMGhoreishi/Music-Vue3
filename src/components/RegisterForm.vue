@@ -6,6 +6,24 @@
   >
     {{ reg_alert_msg }}
   </div>
+
+  <form-el
+    :inputs="
+      GetFormInputsData([
+        FormInputsEnum.Name,
+        FormInputsEnum.Email,
+        FormInputsEnum.Age,
+        FormInputsEnum.Password,
+        FormInputsEnum.ConfirmPassword,
+        FormInputsEnum.Country,
+        FormInputsEnum.Role,
+        FormInputsEnum.AcceptTermsOfService
+      ])
+    "
+    :submitFunction="register"
+    :submitBtnStatus="reg_in_submission"
+  />
+
   <vee-form :validation-schema="schema" @submit="register" :initial-values="userData">
     <!-- Name -->
     <div class="mb-3">
@@ -119,6 +137,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import useUserStore from '../stores/user'
+import FormInputsEnum from '../utility/FormBase/FormInputsEnum'
+import GetFormInputsData from '../utility/FormBase/GetFormInputsData'
 
 const userStore = useUserStore()
 

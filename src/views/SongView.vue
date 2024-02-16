@@ -102,11 +102,9 @@ import { mapState, mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 import usePlayerStore from '@/stores/player'
 import moment from 'moment'
-import SongLike from '@/components/SongLike.vue'
 
 export default {
   name: 'SongView',
-  components: { SongLike },
   data() {
     return {
       song: {},

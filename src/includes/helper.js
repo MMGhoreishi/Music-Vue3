@@ -4,7 +4,5 @@ export default {
     const seconds = Math.round(time - minutes * 60 || 0)
 
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-  },
-
-  assignArrayByEnumValues: (array, index, value) => (array[index] = value)
+  }
 }

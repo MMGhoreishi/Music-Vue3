@@ -34,12 +34,8 @@
 </template>
 
 <script>
-import UploadCover from '@/components/UploadCover.vue'
-import UploadSong from '@/components/UploadSong.vue'
-
 export default {
   name: 'UploadFile',
-  components: { UploadCover, UploadSong },
   props: {
     addSong: {
       type: Function,

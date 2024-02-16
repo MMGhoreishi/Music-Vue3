@@ -48,7 +48,6 @@
 import { useRoute, useRouter } from 'vue-router'
 import useModalStore from '../stores/modal'
 import useUserStore from '../stores/user'
-import DarkLightBtn from '../components/DarkLightBtn.vue'
 
 const router = useRouter()
 const route = useRoute()

@@ -1,13 +1,14 @@
-import { IFormInputsData } from '../../contracts/FormBase/IFormInputsData'
-import { FormInputsData } from './FormInputsData'
-import { FormInputsEnum } from './FormInputsEnum'
+import IFormInputsData from '../FormBase/IFormInputsData'
+import FormInputsData from '../FormBase/FormInputsData'
+import FormInputsEnum from '../FormBase/FormInputsEnum'
 
-export const GetFormInputsData = (enumValues: FormInputsEnum[]): IFormInputsData[] => {
+const GetFormInputsData = (enumValues: FormInputsEnum[]): IFormInputsData[] => {
   const formInputsData: IFormInputsData[] = []
 
   for (let i = 0; i < enumValues.length; i++) {
-    formInputsData.push(FormInputsData[enumValues[i]])
+    formInputsData.push(FormInputsData[Number(enumValues[i])])
   }
-
   return formInputsData
 }
+
+export default GetFormInputsData

@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import usePlayerStore from '../stores/player'
-import SongLike from '../components/SongLike.vue'
 
 const playerStore = usePlayerStore()
 

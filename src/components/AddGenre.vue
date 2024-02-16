@@ -27,8 +27,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { genresCollection, auth } from '../includes/firebase'
-import { FormInputsEnum } from '../utility/FormBase/FormInputsEnum'
-import { GetFormInputsData } from '../utility/FormBase/GetFormInputsData'
+// import { FormInputsEnum, GetFormInputsData } from '../utility/FormBase'
+import FormInputsEnum from '../utility/FormBase/FormInputsEnum'
+import GetFormInputsData from '../utility/FormBase/GetFormInputsData'
 
 const { updateUnsavedFlag, updateGenres } = defineProps({
   updateUnsavedFlag: {

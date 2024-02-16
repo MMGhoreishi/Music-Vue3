@@ -16,8 +16,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import useUserStore from '../stores/user'
-import { FormInputsEnum } from '../utility/FormBase/FormInputsEnum'
-import { GetFormInputsData } from '../utility/FormBase/GetFormInputsData'
+import FormInputsEnum from '../utility/FormBase/FormInputsEnum'
+import GetFormInputsData from '../utility/FormBase/GetFormInputsData'
 
 const userStore = useUserStore()
 

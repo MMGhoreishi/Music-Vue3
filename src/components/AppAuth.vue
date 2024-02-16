@@ -51,8 +51,8 @@
             </li>
           </ul>
 
-          <app-login-form v-if="tab === 'login'" />
-          <app-register-form v-else />
+          <LoginForm v-if="tab === 'login'" />
+          <RegisterForm v-else />
         </div>
       </div>
     </div>
@@ -62,8 +62,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import useModalStore from '../stores/modal'
-import AppLoginForm from '../components/LoginForm.vue'
-import AppRegisterForm from '../components/RegisterForm.vue'
 
 const store = useModalStore()
 

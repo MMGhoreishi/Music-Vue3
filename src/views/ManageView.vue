@@ -34,14 +34,10 @@
 </template>
 
 <script>
-import UploadFiles from '@/components/UploadFiles.vue'
-import CompositionItem from '@/components/CompositionItem.vue'
-import AddGenre from '@/components/AddGenre.vue'
 import { auth, songsCollection, genresCollection } from '@/includes/firebase'
 
 export default {
   name: 'ManageView',
-  components: { UploadFiles, CompositionItem, AddGenre },
   data() {
     return {
       songs: [],
