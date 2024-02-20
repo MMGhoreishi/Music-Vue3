@@ -1,10 +1,18 @@
 interface IFormElementsData {
   name: string
-  type: 'text' | 'number' | 'email' | 'time' | 'date' | 'password' | 'select' | 'checkbox'
-  placeholder: string
+  type:
+    | 'text'
+    | 'number'
+    | 'email'
+    | 'time'
+    | 'date'
+    | 'password'
+    | 'select'
+    | 'checkbox'
+    | 'textarea'
+  placeholderLabel: string
   schema: string
   options?: string[]
-  label?: string
 }
 
 export default IFormElementsData

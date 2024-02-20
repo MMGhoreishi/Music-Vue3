@@ -45,22 +45,14 @@
           >
             {{ comment_alert_message }}
           </div>
-          <vee-form :validation-schema="schema" @submit="addComment" v-if="userLoggedIn">
-            <vee-field
-              as="textarea"
-              name="comment"
-              class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
-              placeholder="Your comment here..."
-            ></vee-field>
-            <ErrorMessage class="text-red-600 dark:text-red-300" name="comment" />
-            <button
-              type="submit"
-              class="py-1.5 px-3 rounded text-white bg-violet-500 hover:bg-violet-600 block"
-              :disabled="comment_in_submission"
-            >
-              Submit
-            </button>
-          </vee-form>
+
+          <form-el
+            v-if="userLoggedIn"
+            :inputs="GetFormElementsDataComputed"
+            :submitFunction="addComment"
+            :submitBtnStatus="comment_in_submission"
+          />
+
           <div v-else class="text-white text-center font-bold p-4 rounded mb-4 bg-orange-400">
             You need to log in to send comment.
           </div>
@@ -98,6 +90,8 @@
 
 <script>
 import { songsCollection, commentsCollection, auth } from '@/includes/firebase'
+import FormElementsEnum from '../utility/FormBase/FormElementsEnum'
+import GetFormElementsData from '../utility/FormBase/GetFormElementsData'
 import { mapState, mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 import usePlayerStore from '@/stores/player'
@@ -127,6 +121,9 @@ export default {
 
         return new Date(a.datePosted) - new Date(b.datePosted)
       })
+    },
+    GetFormElementsDataComputed() {
+      return GetFormElementsData([FormElementsEnum.Comment])
     }
   },
   async beforeRouteEnter(to, from, next) {

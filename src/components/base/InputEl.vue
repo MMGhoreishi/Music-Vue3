@@ -22,7 +22,17 @@ defineProps({
   },
   type: {
     validator(value: string): boolean {
-      return ['text', 'number', 'email', 'time', 'date'].includes(value)
+      return [
+        'text',
+        'number',
+        'email',
+        'time',
+        'date',
+        'password',
+        'select',
+        'checkbox',
+        'textarea'
+      ].includes(value)
     },
     default: 'text'
   },

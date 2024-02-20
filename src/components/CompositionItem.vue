@@ -23,60 +23,38 @@
       >
         {{ alert_message }}
       </div>
-      <vee-form :validation-schema="schema" :initial-values="song" @submit="edit">
-        <div class="mb-3">
-          <label class="inline-block mb-2">Song Title</label>
-          <vee-field
-            type="text"
-            name="modified_name"
-            class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Song Title"
-            @input="updateUnsavedFlag(true)"
-          />
-          <ErrorMessage class="text-red-600" name="modified_name" />
-        </div>
-        <div class="mb-3">
-          <label class="inline-block mb-2">Genre</label>
 
-          <vee-field
-            as="select"
-            name="genre"
-            class="dark:bg-gray-500 dark:text-white block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            @input="updateUnsavedFlag(true)"
-          >
-            <option :value="song.genre" selected hidden>{{ song.genre }}</option>
-            <option v-for="genre in genres" :key="genre.docID" :value="genre.genre">
+      <form-el
+        :inputs="
+          GetFormElementsData(
+            [FormElementsEnum.ModifiedName, FormElementsEnum.Genres],
+            [
+              {
+                selectOptions: genresNames,
+                selectOtionsEnumKey: FormElementsEnum.Genres
+              }
+            ]
+          )
+        "
+        :submitFunction="edit"
+        :submitBtnStatus="in_submission"
+      />
+
+      <!-- <option :value="song.genre" selected hidden>{{ song.genre }}</option> -->
+      <!-- <option v-for="genre in genres" :key="genre.docID" :value="genre.genre">
               {{ genre.genre }}
-            </option>
-          </vee-field>
-
-          <ErrorMessage class="text-red-600" name="genre" />
-        </div>
-        <button
-          type="submit"
-          class="py-1.5 px-3 rounded text-white bg-violet-500 hover:bg-violet-600"
-          :disabled="in_submission"
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          class="py-1.5 px-3 rounded text-white bg-gray-600"
-          :disabled="in_submission"
-          @click.prevent="showForm = false"
-        >
-          Go Back
-        </button>
-      </vee-form>
+            </option> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import { songsCollection, storage } from '../includes/firebase'
+import FormElementsEnum from '../utility/FormBase/FormElementsEnum'
+import GetFormElementsData from '../utility/FormBase/GetFormElementsData'
 
-const { song, index, updateSong, updateUnsavedFlag, removeSong } = defineProps({
+const { song, index, updateSong, updateUnsavedFlag, removeSong, genres } = defineProps({
   song: {
     type: Object,
     required: true
@@ -103,11 +81,18 @@ const { song, index, updateSong, updateUnsavedFlag, removeSong } = defineProps({
   }
 })
 
-const showForm = ref<Boolean>(false)
-const schema = reactive({
-  modified_name: 'songTitle',
-  genre: 'required'
+const genresNames = computed(() => {
+  const genresNamesArray: string[] = []
+
+  for (let i = 0; i < genres.length; i++) {
+    genresNamesArray.push(genres[i].genre)
+  }
+
+  return genresNamesArray
 })
+
+const showForm = ref<Boolean>(false)
+
 const in_submission = ref<Boolean>(false)
 const show_alert = ref<Boolean>(false)
 const alert_variant = ref<String>('bg-blue-500')

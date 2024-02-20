@@ -7,7 +7,10 @@ enum FormElementsEnum {
   Age,
   Country,
   Role,
-  AcceptTermsOfService
+  AcceptTermsOfService,
+  Comment,
+  ModifiedName,
+  Genres
 }
 
 export default FormElementsEnum

@@ -13,16 +13,24 @@
       <checkbox-el
         :name="item.name"
         :updateUnsavedFlag="updateUnsavedFlag"
-        :label="item.label"
+        :label="item.placeholderLabel"
         v-if="item.type === 'checkbox'"
+      />
+
+      <!-- TextArea -->
+      <textarea-el
+        :name="item.name"
+        :updateUnsavedFlag="updateUnsavedFlag"
+        :placeholder="item.placeholderLabel"
+        v-if="item.type === 'textarea'"
       />
 
       <!-- input -->
       <input-el
         :name="item.name"
-        :placeholder="item.placeholder"
+        :placeholder="item.placeholderLabel"
         :type="item.type"
-        v-if="item.type !== 'checkbox' && item.type !== 'select'"
+        v-if="item.type !== 'checkbox' && item.type !== 'select' && item.type !== 'textarea'"
         :updateUnsavedFlag="updateUnsavedFlag"
       />
     </div>
