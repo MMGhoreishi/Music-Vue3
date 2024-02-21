@@ -38,12 +38,9 @@
         "
         :submitFunction="edit"
         :submitBtnStatus="in_submission"
+        :initial-values="song"
+        :goBackBtn="() => (showForm = false)"
       />
-
-      <!-- <option :value="song.genre" selected hidden>{{ song.genre }}</option> -->
-      <!-- <option v-for="genre in genres" :key="genre.docID" :value="genre.genre">
-              {{ genre.genre }}
-            </option> -->
     </div>
   </div>
 </template>

@@ -4,7 +4,6 @@
     class="block w-full py-1.5 px-3 transition"
     :class="bindClasses"
     :disabled="disabled"
-    @click="click"
   >
     {{ text }}
   </button>
@@ -52,11 +51,6 @@ const { bgClr, bgClrDark, txtClr, hvrBg, hvrTxt, roundedFull } = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
     required: false
-  },
-  click: {
-    type: Function as PropType<Function>,
-    required: false,
-    default: () => ''
   }
 })
 

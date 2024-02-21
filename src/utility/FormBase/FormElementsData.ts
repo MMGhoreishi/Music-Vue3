@@ -75,7 +75,8 @@ const FormElementsData: { [id: number]: IFormElementsData } = {
     type: 'select',
     placeholderLabel: 'Choose Genre',
     schema: 'required',
-    options: []
+    options: [],
+    defaultValue: 'Genre'
   }
 }
 

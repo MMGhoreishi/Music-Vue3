@@ -7,6 +7,7 @@
         :updateUnsavedFlag="updateUnsavedFlag"
         :options="item.options"
         v-if="item.type === 'select'"
+        :defaultValue="item.defaultValue"
       />
 
       <!-- Input CheckBox -->
@@ -32,11 +33,45 @@
         :type="item.type"
         v-if="item.type !== 'checkbox' && item.type !== 'select' && item.type !== 'textarea'"
         :updateUnsavedFlag="updateUnsavedFlag"
+        :defaultValue="item.defaultValue"
+      />
+    </div>
+
+    <div class="grid grid-cols-2 grid-rows-1 gap-5" v-if="goBackBtn">
+      <!-- <button
+        type="button"
+        class="py-1.5 px-3 rounded text-white bg-gray-600"
+        :disabled="in_submission"
+        @click.prevent="goBackBtn"
+      >
+        Go Back
+      </button> -->
+
+      <button-el
+        type="button"
+        text="Go Back"
+        :disabled="submitBtnStatus"
+        :bgClr="'gray-600'"
+        txtClr="white"
+        :hvrBg="'gray-700'"
+        hvrTxt="white"
+        @click.prevent="goBackBtn"
+      />
+
+      <button-el
+        type="submit"
+        text="Add Genre"
+        :disabled="submitBtnStatus"
+        :bgClr="'violet-500'"
+        txtClr="white"
+        :hvrBg="'violet-600'"
+        hvrTxt="white"
       />
     </div>
 
     <!-- Submit Button -->
     <button-el
+      v-else
       type="submit"
       text="Add Genre"
       :disabled="submitBtnStatus"
@@ -72,11 +107,13 @@ const { inputs } = defineProps({
   submitBtnStatus: {
     type: Boolean as PropType<boolean>,
     default: false
+  },
+  goBackBtn: {
+    type: Function as PropType<Function>,
+    default: null,
+    required: false
   }
 })
-
-console.log('Test-Select>>>')
-console.log(inputs)
 
 const schema = computed(() => {
   const schemaData = {}

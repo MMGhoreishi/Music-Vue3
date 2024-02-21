@@ -13,6 +13,7 @@ interface IFormElementsData {
   placeholderLabel: string
   schema: string
   options?: string[]
+  defaultValue?: string
 }
 
 export default IFormElementsData
