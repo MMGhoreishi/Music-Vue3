@@ -38,15 +38,6 @@
     </div>
 
     <div class="grid grid-cols-2 grid-rows-1 gap-5" v-if="goBackBtn">
-      <!-- <button
-        type="button"
-        class="py-1.5 px-3 rounded text-white bg-gray-600"
-        :disabled="in_submission"
-        @click.prevent="goBackBtn"
-      >
-        Go Back
-      </button> -->
-
       <button-el
         type="button"
         text="Go Back"
